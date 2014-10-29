@@ -11,6 +11,7 @@
 @implementation DLLHTTPUtil
 
 static AFSecurityPolicy *__securityPolicy;
+static NSURLCredential *__credential;
 
 + (AFSecurityPolicy *)defaultSecurityPolciy
 {
@@ -38,6 +39,68 @@ static AFSecurityPolicy *__securityPolicy;
     [__securityPolicy setPinnedCertificates:[NSArray arrayWithObject:cerData]];
     return __securityPolicy;
 }
+
++ (NSURLCredential *)defaultCredential
+{
+    return __credential;
+}
+
+OSStatus extractIdentityAndTrust(CFDataRef inP12data, SecIdentityRef *identity, SecTrustRef *trust, NSString* password)
+{
+    OSStatus securityError = errSecSuccess;
+    
+    CFStringRef pwd = (CFStringRef) password;
+    const void *keys[] = { kSecImportExportPassphrase };
+    const void *values[] = { pwd };
+    
+    CFDictionaryRef options = CFDictionaryCreate(NULL, keys, values, 1, NULL, NULL);
+    
+    CFArrayRef items = CFArrayCreate(NULL, 0, 0, NULL);
+    securityError = SecPKCS12Import(inP12data, options, &items);
+    
+    if (securityError == 0) {
+        CFDictionaryRef myIdentityAndTrust = CFArrayGetValueAtIndex(items, 0);
+        const void *tempIdentity = NULL;
+        tempIdentity = CFDictionaryGetValue(myIdentityAndTrust, kSecImportItemIdentity);
+        *identity = (SecIdentityRef)tempIdentity;
+        const void *tempTrust = NULL;
+        tempTrust = CFDictionaryGetValue(myIdentityAndTrust, kSecImportItemTrust);
+        *trust = (SecTrustRef)tempTrust;
+    }
+    
+    if (options) {
+        CFRelease(options);
+    }
+    
+    return securityError;
+}
+
+
+
++ (NSURLCredential *)createDefaultCredentialWithCertificateName:(NSString *)cerName type:(NSString *)cerType andPassword:(NSString *)password
+{
+    if (__credential != nil) {
+        [__credential release];
+        __credential = nil;
+    }
+    NSString *path = [[NSBundle mainBundle] pathForResource:cerName ofType:cerType];
+    NSData *p12data = [NSData dataWithContentsOfFile:path];
+    CFDataRef inP12data = (__bridge CFDataRef)p12data;
+    
+    SecIdentityRef myIdentity;
+    SecTrustRef myTrust;
+    extractIdentityAndTrust(inP12data, &myIdentity, &myTrust, password);
+    
+    SecCertificateRef myCertificate;
+    SecIdentityCopyCertificate(myIdentity, &myCertificate);
+    const void *certs[] = { myCertificate };
+    CFArrayRef certsArray = CFArrayCreate(NULL, certs, 1, NULL);
+    
+    __credential = [[NSURLCredential alloc] initWithIdentity:myIdentity certificates:(__bridge NSArray*)certsArray persistence:NSURLCredentialPersistencePermanent];
+    return __credential;
+}
+
+
 
 + (NSURL*) urlFormWithHostAddress:(NSString*)hostAddress andParameters:(NSDictionary*)parameters
 {

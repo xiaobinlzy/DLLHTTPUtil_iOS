@@ -10,7 +10,6 @@
 #import "DLLHTTPResponse.h"
 #import "ASIHTTPRequest.h"
 #import "DLLHTTPUtil.h"
-
 @interface DLLHTTPRequest() <ASIHTTPRequestDelegate>
 
 @end
@@ -71,6 +70,10 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
                 manager.securityPolicy = securityPolicy;
                 manager.responseSerializer = [AFHTTPResponseSerializer serializer];
                 manager.requestSerializer.timeoutInterval = _timeoutIntervel;
+                NSURLCredential *credential = [DLLHTTPUtil defaultCredential];
+                if (credential != nil) {
+                    manager.credential = credential;
+                }
                 [manager GET:_url parameters:_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     if (_state != DLLHTTPRequestStateExecuting) {
                         [self autorelease];
@@ -118,7 +121,8 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
                 AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
                 manager.securityPolicy = securityPolicy;
                 manager.requestSerializer.timeoutInterval = _timeoutIntervel;
-
+                manager.credential = [DLLHTTPUtil defaultCredential];
+                
                 [manager POST:_url parameters:_params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                     
                 } success:^(AFHTTPRequestOperation *operation, id responseObject) {
