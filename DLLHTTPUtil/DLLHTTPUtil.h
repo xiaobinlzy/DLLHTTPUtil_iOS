@@ -18,12 +18,12 @@
 /** 
  初始化默认的SSL证书
  **/
-+ (AFSecurityPolicy *)createDefaultSecurityPolicyWithCertificateName:(NSString *)cerName andType:(NSString *)cerType;
++ (AFSecurityPolicy *)createDefaultSecurityPolicyWithCertificatePath:(NSString *)cerPath;
 
 /**
  初始化SSL客户端请求证书
  **/
-+ (NSURLCredential *)createDefaultCredentialWithCertificateName:(NSString *)cerName type:(NSString *)cerType andPassword:(NSString *)password;
++ (NSURLCredential *)createDefaultCredentialWithCertificatePath:(NSString *)cerPath andPassword:(NSString *)password;
 
 /**
  获得自定义的SSL证书

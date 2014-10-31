@@ -23,7 +23,7 @@ static NSURLCredential *__credential;
     return __securityPolicy;
 }
 
-+ (AFSecurityPolicy *)createDefaultSecurityPolicyWithCertificateName:(NSString *)cerName andType:(NSString *)cerType
++ (AFSecurityPolicy *)createDefaultSecurityPolicyWithCertificatePath:(NSString *)cerPath
 {
     if (__securityPolicy != nil) {
         @synchronized (self) {
@@ -31,7 +31,6 @@ static NSURLCredential *__credential;
             __securityPolicy = nil;
         }
     }
-    NSString *cerPath = [[NSBundle mainBundle] pathForResource:cerName ofType:cerType];
     NSData *cerData = [NSData dataWithContentsOfFile:cerPath];
     __securityPolicy = [[AFSecurityPolicy alloc] init];
     [__securityPolicy setAllowInvalidCertificates:YES];
@@ -77,14 +76,13 @@ OSStatus extractIdentityAndTrust(CFDataRef inP12data, SecIdentityRef *identity, 
 
 
 
-+ (NSURLCredential *)createDefaultCredentialWithCertificateName:(NSString *)cerName type:(NSString *)cerType andPassword:(NSString *)password
++ (NSURLCredential *)createDefaultCredentialWithCertificatePath:(NSString *)cerPath andPassword:(NSString *)password
 {
     if (__credential != nil) {
         [__credential release];
         __credential = nil;
     }
-    NSString *path = [[NSBundle mainBundle] pathForResource:cerName ofType:cerType];
-    NSData *p12data = [NSData dataWithContentsOfFile:path];
+    NSData *p12data = [NSData dataWithContentsOfFile:cerPath];
     CFDataRef inP12data = (__bridge CFDataRef)p12data;
     
     SecIdentityRef myIdentity;
