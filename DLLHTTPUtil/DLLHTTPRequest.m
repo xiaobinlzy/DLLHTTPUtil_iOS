@@ -33,11 +33,20 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 
 - (instancetype)initWithURL:(NSString *)url
 {
-    self = [super init];
+    self = [self init];
     if (self) {
         _url = [url retain];
+    }
+    return self;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
         _timeoutIntervel = gDefaultTimeoutIntervel;
         _state = DLLHTTPRequestStatePrepare;
+        _responseEncoding = NSUTF8StringEncoding;
     }
     return self;
 }
@@ -74,6 +83,7 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
                 if (credential != nil) {
                     manager.credential = credential;
                 }
+                manager.responseSerializer.stringEncoding = self.responseEncoding;
                 [manager GET:_url parameters:_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     if (_state != DLLHTTPRequestStateExecuting) {
                         [self autorelease];
@@ -121,8 +131,12 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
                 AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
                 manager.securityPolicy = securityPolicy;
                 manager.requestSerializer.timeoutInterval = _timeoutIntervel;
-                manager.credential = [DLLHTTPUtil defaultCredential];
+                NSURLCredential *credential = [DLLHTTPUtil defaultCredential];
+                if (credential != nil) {
+                    manager.credential = credential;
+                }
                 
+                manager.responseSerializer.stringEncoding = self.responseEncoding;
                 [manager POST:_url parameters:_params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
                     
                 } success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -174,6 +188,7 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 - (ASIHTTPRequest *)createASIHTTPGetRequestWithParams:(NSDictionary *)params
 {
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[DLLHTTPUtil urlFormWithHostAddress:_url andParameters:params]];
+    request.defaultResponseEncoding = self.responseEncoding;
     request.allowCompressedResponse = YES;
     _requestPointer = [request retain];
     request.delegate = self;
@@ -184,6 +199,8 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 - (ASIHTTPRequest *)createASIHTTPPostRequestWithParams:(NSDictionary *)params
 {
     ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:_url]];
+
+    request.defaultResponseEncoding = self.responseEncoding;
     request.allowCompressedResponse = YES;
     _requestPointer = [request retain];
     request.delegate = self;

@@ -24,6 +24,7 @@
         _responseData = [responseData retain];
         _responseString = [responseString copy];
         _headers = [headers copy];
+        _encoding = stringEncoding;
     }
     return self;
 }

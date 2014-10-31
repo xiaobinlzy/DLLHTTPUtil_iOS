@@ -31,6 +31,8 @@
  **/
 @property (nonatomic, readonly) NSDictionary *headers;
 
+@property (nonatomic, readonly) NSStringEncoding encoding;
+
 - (instancetype)initWithStatusCode:(NSInteger)statusCode responseData:(NSData *)responseData stringEncoding:(NSStringEncoding)stringEncoding responseHeaders:(NSDictionary *)headers responseString:(NSString *)responseString;
 
 
