@@ -42,7 +42,10 @@
 
 + (NSString *)URLEncodingFromString:(NSString *)string;
 
++ (NSString *)URLDecodingFromString:(NSString *)string encoding:(NSStringEncoding)encoding;
 + (NSString *)URLDecodingFromString:(NSString *)string;
 
++ (NSDictionary *)paramsOfURL:(NSString *)url encoding:(NSStringEncoding)encoding;
++ (NSDictionary *)paramsOfURL:(NSString *)url;
 
 @end

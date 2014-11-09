@@ -30,5 +30,6 @@
 
 - (NSString *)URLEncodedString;
 - (NSString *)URLDecodedString;
+- (NSString *)URLDecodedStringEncoding:(CFStringEncoding)encoding;
 
 @end

@@ -34,11 +34,16 @@
 	return result;
 }
 
-- (NSString *)URLDecodedString {
-    CFStringRef url = CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault, (CFStringRef)self, CFSTR(""), kCFStringEncodingUTF8);
+- (NSString *)URLDecodedStringEncoding:(CFStringEncoding)encoding {
+    CFStringRef url = CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault, (CFStringRef)self, CFSTR(""), encoding);
 	NSString *result = (NSString *)url;
 	[result autorelease];
     return result;
+}
+
+- (NSString *)URLDecodedString
+{
+    return [self URLDecodedStringEncoding:kCFStringEncodingUTF8];
 }
 
 @end
