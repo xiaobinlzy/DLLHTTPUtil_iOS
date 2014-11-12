@@ -137,9 +137,8 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
                 }
                 
                 manager.responseSerializer.stringEncoding = self.responseEncoding;
-                [manager POST:_url parameters:_params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                    
-                } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+               
+                [manager POST:_url parameters:_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     if (_state != DLLHTTPRequestStateExecuting) {
                         [self autorelease];
                         return;
