@@ -97,6 +97,11 @@ typedef enum {
  **/
 @property (nonatomic, assign) NSStringEncoding responseEncoding;
 
+/** 
+ 请求头
+ **/
+@property (nonatomic, retain) NSDictionary *requestHeaders;
+
 #pragma mark - methods
 /**
  用url对请求对象进行初始化，初始化后的url不可修改。

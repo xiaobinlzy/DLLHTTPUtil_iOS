@@ -27,6 +27,7 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 @synthesize tag = _tag;
 @synthesize state = _state;
 @synthesize params = _params;
+@synthesize requestHeaders = _requestHeaders;
 
 
 #pragma mark - life cycle
@@ -63,6 +64,7 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
     [_response release];
     [_params release];
     [_requestPointer release];
+    [_requestHeaders release];
     [super dealloc];
 }
 
@@ -74,44 +76,13 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
             _state = DLLHTTPRequestStateExecuting;
             [self onRequestStart];
             if ([self.url hasPrefix:@"https://"]) {
-                AFSecurityPolicy *securityPolicy = [DLLHTTPUtil defaultSecurityPolciy];
-                AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                manager.securityPolicy = securityPolicy;
-                manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-                manager.requestSerializer.timeoutInterval = _timeoutIntervel;
-                NSURLCredential *credential = [DLLHTTPUtil defaultCredential];
-                if (credential != nil) {
-                    manager.credential = credential;
-                }
-                manager.responseSerializer.stringEncoding = self.responseEncoding;
-                [manager GET:_url parameters:_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    if (_state != DLLHTTPRequestStateExecuting) {
-                        [self autorelease];
-                        return;
-                    }
-                    _state = DLLHTTPRequestStateDone;
+                [[self createAFNetworkingManager] GET:_url parameters:_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     _response = [[DLLHTTPResponse alloc] initWithStatusCode:operation.response.statusCode responseData:operation.responseData stringEncoding:operation.responseStringEncoding responseHeaders:nil responseString:operation.responseString];
-                    if (_delegate && [_delegate respondsToSelector:@selector(requestFinished:responseString:)]) {
-                        [_delegate requestFinished:self responseString:_response.responseString];
-                    }
-                    if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
-                        [_delegate requestEnd:self];
-                    }
-                    [self autorelease];
+                    [self reportFinish];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    if (_state != DLLHTTPRequestStateExecuting) {
-                        [self autorelease];
-                        return;
-                    }
-                    _state = DLLHTTPRequestStateDone;
                     _response = [[DLLHTTPResponse alloc] initWithStatusCode:operation.response.statusCode responseData:operation.responseData stringEncoding:operation.responseStringEncoding responseHeaders:nil responseString:operation.responseString];
-                    if (_delegate && [_delegate respondsToSelector:@selector(requestFailed:error:)]) {
-                        [_delegate requestFailed:self error:operation.error];
-                    }
-                    if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
-                        [_delegate requestEnd:self];
-                    }
-                    [self autorelease];
+                    [self reportFailed:error];
+                    NSLog(@"%@", operation.responseString);
                 }];
             } else {
                 [[self createASIHTTPGetRequestWithParams:self.params] startAsynchronous];
@@ -127,45 +98,12 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
             _state = DLLHTTPRequestStateExecuting;
             [self onRequestStart];
             if ([self.url hasPrefix:@"https://"]) {
-                AFSecurityPolicy *securityPolicy = [DLLHTTPUtil defaultSecurityPolciy];
-                AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-                manager.securityPolicy = securityPolicy;
-                manager.requestSerializer.timeoutInterval = _timeoutIntervel;
-                NSURLCredential *credential = [DLLHTTPUtil defaultCredential];
-                if (credential != nil) {
-                    manager.credential = credential;
-                }
-                
-                manager.responseSerializer.stringEncoding = self.responseEncoding;
-               
-                [manager POST:_url parameters:_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    if (_state != DLLHTTPRequestStateExecuting) {
-                        [self autorelease];
-                        return;
-                    }
-                    _state = DLLHTTPRequestStateDone;
+                [[self createAFNetworkingManager] POST:_url parameters:_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     _response = [[DLLHTTPResponse alloc] initWithStatusCode:operation.response.statusCode responseData:operation.responseData stringEncoding:operation.responseStringEncoding responseHeaders:nil responseString:operation.responseString];
-                    if (_delegate && [_delegate respondsToSelector:@selector(requestFinished:responseString:)]) {
-                        [_delegate requestFinished:self responseString:_response.responseString];
-                    }
-                    if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
-                        [_delegate requestEnd:self];
-                    }
-                    [self autorelease];
+                    [self reportFinish];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    if (_state != DLLHTTPRequestStateExecuting) {
-                        [self release];
-                        return;
-                    }
-                    _state = DLLHTTPRequestStateDone;
                     _response = [[DLLHTTPResponse alloc] initWithStatusCode:operation.response.statusCode responseData:operation.responseData stringEncoding:operation.responseStringEncoding responseHeaders:nil responseString:operation.responseString];
-                    if (_delegate && [_delegate respondsToSelector:@selector(requestFailed:error:)]) {
-                        [_delegate requestFailed:self error:operation.error];
-                    }
-                    if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
-                        [_delegate requestEnd:self];
-                    }
-                    [self autorelease];
+                    [self reportFailed:error];
                 }];
             } else {
                 [[self createASIHTTPPostRequestWithParams:self.params] startAsynchronous];
@@ -174,40 +112,56 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
     }
 }
 
-- (AFHTTPRequestOperation *)createAfHttpRequestOperation
+- (AFHTTPRequestOperationManager *)createAFNetworkingManager
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:_url]];
-    request.timeoutInterval = _timeoutIntervel;
-    request.HTTPMethod = @"POST";
-    [request setHTTPShouldHandleCookies:YES];
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    return [operation autorelease];
+    AFSecurityPolicy *securityPolicy = [DLLHTTPUtil defaultSecurityPolciy];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.securityPolicy = securityPolicy;
+    manager.requestSerializer.timeoutInterval = _timeoutIntervel;
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html", nil];
+    manager.responseSerializer.stringEncoding = _responseEncoding;
+    for (NSString *key in _requestHeaders) {
+        [manager.requestSerializer setValue:[_requestHeaders objectForKey:key] forHTTPHeaderField:key];
+    }
+    NSURLCredential *credential = [DLLHTTPUtil defaultCredential];
+    if (credential != nil) {
+        manager.credential = credential;
+    }
+    
+    manager.responseSerializer.stringEncoding = self.responseEncoding;
+    return manager;
 }
+
 
 - (ASIHTTPRequest *)createASIHTTPGetRequestWithParams:(NSDictionary *)params
 {
     ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:[DLLHTTPUtil urlFormWithHostAddress:_url andParameters:params]];
-    request.defaultResponseEncoding = self.responseEncoding;
-    request.allowCompressedResponse = YES;
-    _requestPointer = [request retain];
-    request.delegate = self;
-    request.timeOutSeconds = _timeoutIntervel;
+    [self initializeASIHttpRequest:request];
     return request;
 }
 
 - (ASIHTTPRequest *)createASIHTTPPostRequestWithParams:(NSDictionary *)params
 {
     ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:_url]];
-
-    request.defaultResponseEncoding = self.responseEncoding;
-    request.allowCompressedResponse = YES;
-    _requestPointer = [request retain];
-    request.delegate = self;
-    request.timeOutSeconds = _timeoutIntervel;
     for (NSString *key in params) {
         [request addPostValue:[params objectForKey:key] forKey:key];
     }
+    [self initializeASIHttpRequest:request];
     return [request autorelease];
+}
+
+- (void)initializeASIHttpRequest:(ASIHTTPRequest *)request
+{
+    request.delegate = self;
+    request.timeOutSeconds = _timeoutIntervel;
+    request.defaultResponseEncoding = self.responseEncoding;
+    request.allowCompressedResponse = YES;
+    for (NSString *key in _requestHeaders) {
+        [request addRequestHeader:key value:[_requestHeaders objectForKey:key]];
+    }
+    _requestPointer = [request retain];
+    
 }
 
 + (void)setDefaultTimeoutIntervel:(NSUInteger)timeoutIntervel
@@ -249,38 +203,46 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 #pragma mark - asi http request delegate
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
-    @synchronized (self) {
-        if (_state != DLLHTTPRequestStateExecuting) {
-            return;
-        }
-        _state = DLLHTTPRequestStateDone;
-        _response = [[DLLHTTPResponse alloc] initWithStatusCode:request.responseStatusCode responseData:request.responseData stringEncoding:request.responseEncoding responseHeaders:request.responseHeaders responseString: request.responseString];
-        if (_delegate && [_delegate respondsToSelector:@selector(requestFinished:responseString:)]) {
-            [_delegate requestFinished:self responseString:request.responseString];
-        }
-        if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
-            [_delegate requestEnd:self];
-        }
-        [self autorelease];
-    }
+    _response = [[DLLHTTPResponse alloc] initWithStatusCode:request.responseStatusCode responseData:request.responseData stringEncoding:request.responseEncoding responseHeaders:request.responseHeaders responseString: request.responseString];
+    [self reportFinish];
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
-    @synchronized (self) {
-        if (_state != DLLHTTPRequestStateExecuting) {
-            return;
-        }
-        _state = DLLHTTPRequestStateDone;
-        _response = [[DLLHTTPResponse alloc] initWithStatusCode:request.responseStatusCode responseData:request.responseData stringEncoding:request.responseEncoding responseHeaders:request.responseHeaders responseString:request.responseString];
-        if (_delegate && [_delegate respondsToSelector:@selector(requestFailed:error:)]) {
-            [_delegate requestFailed:self error:request.error];
-        }
-        if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
-            [_delegate requestEnd:self];
-        }
-        [self autorelease];
+    _response = [[DLLHTTPResponse alloc] initWithStatusCode:request.responseStatusCode responseData:request.responseData stringEncoding:request.responseEncoding responseHeaders:request.responseHeaders responseString:request.responseString];
+    [self reportFailed:request.error];
+}
+
+- (void)reportFinish
+{
+    if (_state != DLLHTTPRequestStateExecuting) {
+        return;
     }
+    _state = DLLHTTPRequestStateDone;
+    if (_delegate && [_delegate respondsToSelector:@selector(requestFinished:responseString:)]) {
+        [_delegate requestFinished:self responseString:_response.responseString];
+    }
+    if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
+        [_delegate requestEnd:self];
+    }
+    [self autorelease];
+
+}
+
+- (void)reportFailed:(NSError *)error
+{
+    if (_state != DLLHTTPRequestStateExecuting) {
+        return;
+    }
+    _state = DLLHTTPRequestStateDone;
+    if (_delegate && [_delegate respondsToSelector:@selector(requestFailed:error:)]) {
+        [_delegate requestFailed:self error:error];
+    }
+    if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
+        [_delegate requestEnd:self];
+    }
+    [self autorelease];
+
 }
 
 @end
