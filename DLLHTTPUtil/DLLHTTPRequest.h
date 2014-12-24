@@ -45,15 +45,21 @@ typedef enum {
     DLLHTTPRequestStateExecuting,
     DLLHTTPRequestStateDone,
     DLLHTTPRequestStateCancel,
-    DLLHTTPRequestStateError,
-    DLLHTTPRequestStateFailed
 } DLLHTTPRequestState;
+
+typedef enum {
+    DLLHTTPRequestMethodUnknown,
+    DLLHTTPRequestMethodGet,
+    DLLHTTPRequestMethodPost,
+} DLLHTTPRequestMethod;
 
 /**
  负责请求的HttpRequest对象
  **/
 @interface DLLHTTPRequest : NSObject {
-
+    DLLHTTPRequestState _state;
+    id<DLLHTTPRequestDelegate> _delegate;
+    NSMutableDictionary *_requestHeaders;
 }
 
 #pragma mark - properties
@@ -97,10 +103,8 @@ typedef enum {
  **/
 @property (nonatomic, assign) NSStringEncoding responseEncoding;
 
-/** 
- 请求头
- **/
-@property (nonatomic, retain) NSDictionary *requestHeaders;
+
+@property (nonatomic, readonly) DLLHTTPRequestMethod requestMethod;
 
 #pragma mark - methods
 /**
@@ -119,6 +123,9 @@ typedef enum {
  **/
 - (void)startPostRequest;
 
+/** 重试请求 **/
+- (void)retry;
+
 
 /**
  清空代理对象并且取消
@@ -136,4 +143,12 @@ typedef enum {
 + (NSInteger)defaultTimeoutIntervel;
 
 + (instancetype)requestWithURL:(NSString *)url;
+
+/** 添加请求头 **/
+- (void)addRequestHeader:(NSString *)value forKey:(NSString *)key;
+
+- (void)setRequestHeaders:(NSDictionary *)headers;
+- (NSDictionary *)requestHeaders;
+- (void)reportFailed:(NSError *)error;
+- (void)reportFinish;
 @end

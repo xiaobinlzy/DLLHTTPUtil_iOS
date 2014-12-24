@@ -27,7 +27,6 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 @synthesize tag = _tag;
 @synthesize state = _state;
 @synthesize params = _params;
-@synthesize requestHeaders = _requestHeaders;
 
 
 #pragma mark - life cycle
@@ -69,17 +68,59 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 }
 
 #pragma mark - methods
+- (void)setRequestHeaders:(NSDictionary *)headers
+{
+    [_requestHeaders release];
+    _requestHeaders = [[NSMutableDictionary alloc] initWithDictionary:headers];
+}
+
+- (NSDictionary *)requestHeaders
+{
+    return _requestHeaders;
+}
+
+- (void)addRequestHeader:(NSString *)value forKey:(NSString *)key
+{
+    if (!_requestHeaders) {
+        _requestHeaders = [[NSMutableDictionary alloc] init];
+    }
+    [_requestHeaders setObject:value forKey:key];
+}
+
+- (void)retry
+{
+    if (self.state == DLLHTTPRequestStateDone || self.state == DLLHTTPRequestStateCancel) {
+        _state = DLLHTTPRequestStatePrepare;
+        switch (self.requestMethod) {
+            case DLLHTTPRequestMethodPost:
+                [self startPostRequest];
+                break;
+            case DLLHTTPRequestMethodGet:
+                [self startGetRequest];
+                break;
+            default:
+                break;
+        }
+    } else {
+        NSLog(@"请求必须已经完成，才可以重试");
+    }
+}
+
 - (void)startGetRequest
 {
     @synchronized (self) {
+        _requestMethod = DLLHTTPRequestMethodGet;
         if (_state == DLLHTTPRequestStatePrepare) {
             _state = DLLHTTPRequestStateExecuting;
             [self onRequestStart];
             if ([self.url hasPrefix:@"https://"]) {
+                
                 [[self createAFNetworkingManager] GET:_url parameters:_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [_response release];
                     _response = [[DLLHTTPResponse alloc] initWithStatusCode:operation.response.statusCode responseData:operation.responseData stringEncoding:operation.responseStringEncoding responseHeaders:nil responseString:operation.responseString];
                     [self reportFinish];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [_response release];
                     _response = [[DLLHTTPResponse alloc] initWithStatusCode:operation.response.statusCode responseData:operation.responseData stringEncoding:operation.responseStringEncoding responseHeaders:nil responseString:operation.responseString];
                     [self reportFailed:error];
                     NSLog(@"%@", operation.responseString);
@@ -94,14 +135,17 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 - (void)startPostRequest
 {
     @synchronized (self) {
+        _requestMethod = DLLHTTPRequestMethodPost;
         if (_state == DLLHTTPRequestStatePrepare) {
             _state = DLLHTTPRequestStateExecuting;
             [self onRequestStart];
             if ([self.url hasPrefix:@"https://"]) {
                 [[self createAFNetworkingManager] POST:_url parameters:_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    [_response release];
                     _response = [[DLLHTTPResponse alloc] initWithStatusCode:operation.response.statusCode responseData:operation.responseData stringEncoding:operation.responseStringEncoding responseHeaders:nil responseString:operation.responseString];
                     [self reportFinish];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    [_response release];
                     _response = [[DLLHTTPResponse alloc] initWithStatusCode:operation.response.statusCode responseData:operation.responseData stringEncoding:operation.responseStringEncoding responseHeaders:nil responseString:operation.responseString];
                     [self reportFailed:error];
                 }];
@@ -160,6 +204,7 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
     for (NSString *key in _requestHeaders) {
         [request addRequestHeader:key value:[_requestHeaders objectForKey:key]];
     }
+    [_requestPointer release];
     _requestPointer = [request retain];
     
 }
@@ -203,12 +248,14 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 #pragma mark - asi http request delegate
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
+    [_response release];
     _response = [[DLLHTTPResponse alloc] initWithStatusCode:request.responseStatusCode responseData:request.responseData stringEncoding:request.responseEncoding responseHeaders:request.responseHeaders responseString: request.responseString];
     [self reportFinish];
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
+    [_response release];
     _response = [[DLLHTTPResponse alloc] initWithStatusCode:request.responseStatusCode responseData:request.responseData stringEncoding:request.responseEncoding responseHeaders:request.responseHeaders responseString:request.responseString];
     [self reportFailed:request.error];
 }
@@ -226,7 +273,7 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
         [_delegate requestEnd:self];
     }
     [self autorelease];
-
+    
 }
 
 - (void)reportFailed:(NSError *)error
@@ -242,7 +289,7 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
         [_delegate requestEnd:self];
     }
     [self autorelease];
-
+    
 }
 
 @end
