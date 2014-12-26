@@ -163,7 +163,6 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
     manager.securityPolicy = securityPolicy;
     manager.requestSerializer.timeoutInterval = _timeoutIntervel;
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html", nil];
     manager.responseSerializer.stringEncoding = _responseEncoding;
     for (NSString *key in _requestHeaders) {
         [manager.requestSerializer setValue:[_requestHeaders objectForKey:key] forHTTPHeaderField:key];
