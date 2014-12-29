@@ -102,13 +102,18 @@ OSStatus extractIdentityAndTrust(CFDataRef inP12data, SecIdentityRef *identity, 
 
 + (NSURL*) urlFormWithHostAddress:(NSString*)hostAddress andParameters:(NSDictionary*)parameters
 {
+    return [self urlFormWithHostAddress:hostAddress andParameters:parameters encoding:NSUTF8StringEncoding];
+}
+
++ (NSURL *)urlFormWithHostAddress:(NSString *)hostAddress andParameters:(NSDictionary *)parameters encoding:(NSStringEncoding)encoding
+{
     [parameters retain];
     [hostAddress retain];
     NSMutableString *urlString = [[NSMutableString alloc] initWithString:hostAddress];
     if (nil != parameters && [parameters count] > 0) {
         [urlString appendString:[urlString rangeOfString:@"?"].location == NSNotFound ? @"?" : @"&"];
         for (id key in parameters) {
-            NSString *encodedKey = [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSString *encodedKey = [key stringByAddingPercentEscapesUsingEncoding:encoding];
             [urlString appendFormat:@"%@=%@&", encodedKey, [[parameters objectForKey:key] URLEncodedString]];
         }
         [urlString deleteCharactersInRange:NSMakeRange([urlString length] - 1, 1)];
@@ -118,7 +123,10 @@ OSStatus extractIdentityAndTrust(CFDataRef inP12data, SecIdentityRef *identity, 
     NSURL *url = [NSURL URLWithString:urlString];
     [urlString release];
     return url;
+
 }
+
+
 
 + (NSString *)URLEncodingFromString:(NSString *)string
 {

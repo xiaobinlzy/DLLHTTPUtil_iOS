@@ -39,6 +39,7 @@
  URL参数拼接和转码
  **/
 + (NSURL *)urlFormWithHostAddress:(NSString*)hostAddress andParameters:(NSDictionary*)parameters;
++ (NSURL *)urlFormWithHostAddress:(NSString*)hostAddress andParameters:(NSDictionary*)parameters encoding:(NSStringEncoding)encoding;
 
 + (NSString *)URLEncodingFromString:(NSString *)string;
 
