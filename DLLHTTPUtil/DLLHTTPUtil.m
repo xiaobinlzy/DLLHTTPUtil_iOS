@@ -114,7 +114,7 @@ OSStatus extractIdentityAndTrust(CFDataRef inP12data, SecIdentityRef *identity, 
         [urlString appendString:[urlString rangeOfString:@"?"].location == NSNotFound ? @"?" : @"&"];
         for (id key in parameters) {
             NSString *encodedKey = [key stringByAddingPercentEscapesUsingEncoding:encoding];
-            [urlString appendFormat:@"%@=%@&", encodedKey, [[parameters objectForKey:key] URLEncodedString]];
+            [urlString appendFormat:@"%@=%@&", encodedKey, [[parameters objectForKey:key] URLEncodedStringWithEncoding:CFStringConvertNSStringEncodingToEncoding(encoding)]];
         }
         [urlString deleteCharactersInRange:NSMakeRange([urlString length] - 1, 1)];
     }

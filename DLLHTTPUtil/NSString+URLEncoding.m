@@ -28,10 +28,15 @@
 @implementation NSString (URLEncodingAdditions)
 
 - (NSString *)URLEncodedString {
-    CFStringRef url = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8); // for some reason, releasing this is disasterous
+    return [self URLEncodedStringWithEncoding:kCFStringEncodingUTF8];
+}
+
+- (NSString *)URLEncodedStringWithEncoding:(CFStringEncoding)encoding {
+    CFStringRef url = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), encoding); // for some reason, releasing this is disasterous
     NSString *result = (NSString *)url;
     [result autorelease];
-	return result;
+    return result;
+
 }
 
 - (NSString *)URLDecodedStringEncoding:(CFStringEncoding)encoding {
