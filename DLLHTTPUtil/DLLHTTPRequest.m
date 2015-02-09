@@ -25,7 +25,7 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 @synthesize timeoutIntervel = _timeoutIntervel;
 @synthesize delegate = _delegate;
 @synthesize tag = _tag;
-@synthesize state = _state;
+@synthesize requestStatus = _requestStatus;
 @synthesize params = _params;
 
 
@@ -45,7 +45,7 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
     self = [super init];
     if (self) {
         _timeoutIntervel = gDefaultTimeoutIntervel;
-        _state = DLLHTTPRequestStatePrepare;
+        _requestStatus = DLLHTTPRequestStatePrepare;
         _responseEncoding = NSUTF8StringEncoding;
     }
     return self;
@@ -89,8 +89,8 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 
 - (void)retry
 {
-    if (self.state == DLLHTTPRequestStateDone || self.state == DLLHTTPRequestStateCancel) {
-        _state = DLLHTTPRequestStatePrepare;
+    if (self.requestStatus == DLLHTTPRequestStateDone || self.requestStatus == DLLHTTPRequestStateCancel) {
+        _requestStatus = DLLHTTPRequestStatePrepare;
         switch (self.requestMethod) {
             case DLLHTTPRequestMethodPost:
                 [self startPostRequest];
@@ -110,8 +110,8 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 {
     @synchronized (self) {
         _requestMethod = DLLHTTPRequestMethodGet;
-        if (_state == DLLHTTPRequestStatePrepare) {
-            _state = DLLHTTPRequestStateExecuting;
+        if (_requestStatus == DLLHTTPRequestStatePrepare) {
+            _requestStatus = DLLHTTPRequestStateExecuting;
             [self onRequestStart];
             if ([self.url hasPrefix:@"https://"]) {
                 
@@ -136,8 +136,8 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 {
     @synchronized (self) {
         _requestMethod = DLLHTTPRequestMethodPost;
-        if (_state == DLLHTTPRequestStatePrepare) {
-            _state = DLLHTTPRequestStateExecuting;
+        if (_requestStatus == DLLHTTPRequestStatePrepare) {
+            _requestStatus = DLLHTTPRequestStateExecuting;
             [self onRequestStart];
             if ([self.url hasPrefix:@"https://"]) {
                 [[self createAFNetworkingManager] POST:_url parameters:_params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -222,8 +222,8 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 - (void)clearDelegateAndCancel
 {
     @synchronized (self) {
-        if (_state == DLLHTTPRequestStateExecuting) {
-            _state = DLLHTTPRequestStateCancel;
+        if (_requestStatus == DLLHTTPRequestStateExecuting) {
+            _requestStatus = DLLHTTPRequestStateCancel;
             if (_requestPointer) {
                 [_requestPointer clearDelegatesAndCancel];
                 [self autorelease];
@@ -261,10 +261,10 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 
 - (void)reportFinish
 {
-    if (_state != DLLHTTPRequestStateExecuting) {
+    if (_requestStatus != DLLHTTPRequestStateExecuting) {
         return;
     }
-    _state = DLLHTTPRequestStateDone;
+    _requestStatus = DLLHTTPRequestStateDone;
     if (_delegate && [_delegate respondsToSelector:@selector(requestFinished:responseString:)]) {
         [_delegate requestFinished:self responseString:_response.responseString];
     }
@@ -277,10 +277,10 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 
 - (void)reportFailed:(NSError *)error
 {
-    if (_state != DLLHTTPRequestStateExecuting) {
+    if (_requestStatus != DLLHTTPRequestStateExecuting) {
         return;
     }
-    _state = DLLHTTPRequestStateDone;
+    _requestStatus = DLLHTTPRequestStateDone;
     if (_delegate && [_delegate respondsToSelector:@selector(requestFailed:error:)]) {
         [_delegate requestFailed:self error:error];
     }

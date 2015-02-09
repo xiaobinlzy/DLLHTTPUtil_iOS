@@ -45,7 +45,7 @@ typedef enum {
     DLLHTTPRequestStateExecuting,
     DLLHTTPRequestStateDone,
     DLLHTTPRequestStateCancel,
-} DLLHTTPRequestState;
+} DLLHTTPRequestStatus;
 
 typedef enum {
     DLLHTTPRequestMethodUnknown,
@@ -57,7 +57,7 @@ typedef enum {
  负责请求的HttpRequest对象
  **/
 @interface DLLHTTPRequest : NSObject {
-    DLLHTTPRequestState _state;
+    DLLHTTPRequestStatus _requestStatus;
     id<DLLHTTPRequestDelegate> _delegate;
     NSMutableDictionary *_requestHeaders;
 }
@@ -91,7 +91,7 @@ typedef enum {
 /**
  请求当前的状态
  **/
-@property (atomic, readonly) DLLHTTPRequestState state;
+@property (atomic, readonly) DLLHTTPRequestStatus requestStatus;
 
 /**
  请求所带的参数
