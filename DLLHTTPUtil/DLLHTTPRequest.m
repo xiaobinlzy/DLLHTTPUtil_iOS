@@ -89,7 +89,7 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 
 - (void)retry
 {
-    if (self.requestStatus == DLLHTTPRequestStateDone || self.requestStatus == DLLHTTPRequestStateCancel) {
+    if (self.requestStatus == DLLHTTPRequestStateDone || self.requestStatus == DLLHTTPRequestStateCancel || self.requestStatus == DLLHTTPRequestStatePrepare) {
         _requestStatus = DLLHTTPRequestStatePrepare;
         switch (self.requestMethod) {
             case DLLHTTPRequestMethodPost:
@@ -119,10 +119,12 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
                     [_response release];
                     _response = [[DLLHTTPResponse alloc] initWithStatusCode:operation.response.statusCode responseData:operation.responseData stringEncoding:operation.responseStringEncoding responseHeaders:nil responseString:operation.responseString];
                     [self reportFinish];
+                    [self autorelease];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     [_response release];
                     _response = [[DLLHTTPResponse alloc] initWithStatusCode:operation.response.statusCode responseData:operation.responseData stringEncoding:operation.responseStringEncoding responseHeaders:nil responseString:operation.responseString];
                     [self reportFailed:error];
+                    [self autorelease];
                     NSLog(@"%@", operation.responseString);
                 }];
             } else {
@@ -144,10 +146,12 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
                     [_response release];
                     _response = [[DLLHTTPResponse alloc] initWithStatusCode:operation.response.statusCode responseData:operation.responseData stringEncoding:operation.responseStringEncoding responseHeaders:nil responseString:operation.responseString];
                     [self reportFinish];
+                    [self autorelease];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     [_response release];
                     _response = [[DLLHTTPResponse alloc] initWithStatusCode:operation.response.statusCode responseData:operation.responseData stringEncoding:operation.responseStringEncoding responseHeaders:nil responseString:operation.responseString];
                     [self reportFailed:error];
+                    [self autorelease];
                 }];
             } else {
                 [[self createASIHTTPPostRequestWithParams:self.params] startAsynchronous];
@@ -250,6 +254,7 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
     [_response release];
     _response = [[DLLHTTPResponse alloc] initWithStatusCode:request.responseStatusCode responseData:request.responseData stringEncoding:request.responseEncoding responseHeaders:request.responseHeaders responseString: request.responseString];
     [self reportFinish];
+    [self autorelease];
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request
@@ -257,7 +262,9 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
     [_response release];
     _response = [[DLLHTTPResponse alloc] initWithStatusCode:request.responseStatusCode responseData:request.responseData stringEncoding:request.responseEncoding responseHeaders:request.responseHeaders responseString:request.responseString];
     [self reportFailed:request.error];
+    [self autorelease];
 }
+
 
 - (void)reportFinish
 {
@@ -271,7 +278,6 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
     if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
         [_delegate requestEnd:self];
     }
-    [self autorelease];
     
 }
 
@@ -287,7 +293,6 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
     if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
         [_delegate requestEnd:self];
     }
-    [self autorelease];
     
 }
 

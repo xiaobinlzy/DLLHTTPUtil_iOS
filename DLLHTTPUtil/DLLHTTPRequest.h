@@ -104,7 +104,7 @@ typedef enum {
 @property (nonatomic, assign) NSStringEncoding responseEncoding;
 
 
-@property (nonatomic, readonly) DLLHTTPRequestMethod requestMethod;
+@property (nonatomic, assign) DLLHTTPRequestMethod requestMethod;
 
 #pragma mark - methods
 /**
