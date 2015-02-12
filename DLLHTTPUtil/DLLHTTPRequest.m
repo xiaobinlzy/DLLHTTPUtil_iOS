@@ -57,6 +57,10 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
     return [request autorelease];
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%@, %@", [super description], self.url];
+}
+
 - (void)dealloc
 {
     [_url release];
