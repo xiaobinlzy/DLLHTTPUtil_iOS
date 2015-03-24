@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E3541491AC1C6420058C60E /* DLLRequestOperator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3541481AC1C6420058C60E /* DLLRequestOperator.m */; };
+		4E35414C1AC1CA0F0058C60E /* DLLAFNetworkingRequestOperator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E35414B1AC1CA0F0058C60E /* DLLAFNetworkingRequestOperator.m */; };
+		4E35414F1AC1CA280058C60E /* DLLASIHTTPRequestOperator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E35414E1AC1CA280058C60E /* DLLASIHTTPRequestOperator.m */; };
 		4E881E4C1966351400B95218 /* DLLHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E881E051966351400B95218 /* DLLHTTPRequest.m */; };
 		4E881E4D1966351400B95218 /* DLLHTTPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E881E071966351400B95218 /* DLLHTTPResponse.m */; };
 		4E881E4E1966351400B95218 /* DLLHTTPUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E881E0A1966351400B95218 /* DLLHTTPUtil.m */; };
@@ -35,7 +38,7 @@
 		4E881E651966351400B95218 /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E881E401966351400B95218 /* ASIHTTPRequest.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		4E881E661966351400B95218 /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E881E441966351400B95218 /* ASIInputStream.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		4E881E671966351400B95218 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E881E461966351400B95218 /* ASINetworkQueue.m */; settings = {COMPILER_FLAGS = "-w"; }; };
-		4E881E681966351400B95218 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E881E491966351400B95218 /* Reachability.m */; settings = {COMPILER_FLAGS = "-w"; }; };
+		4E881E681966351400B95218 /* ASIReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E881E491966351400B95218 /* ASIReachability.m */; settings = {COMPILER_FLAGS = "-w"; }; };
 		4E881E691966351400B95218 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E881E4B1966351400B95218 /* NSString+URLEncoding.m */; };
 		4EC234B71932E46100BB16AF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EC234B61932E46100BB16AF /* Security.framework */; };
 		4ECD6F2F192EE0A400D19E6E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ECD6F2E192EE0A400D19E6E /* Foundation.framework */; };
@@ -59,6 +62,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4E3541471AC1C6420058C60E /* DLLRequestOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLLRequestOperator.h; sourceTree = "<group>"; };
+		4E3541481AC1C6420058C60E /* DLLRequestOperator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLLRequestOperator.m; sourceTree = "<group>"; };
+		4E35414A1AC1CA0F0058C60E /* DLLAFNetworkingRequestOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLLAFNetworkingRequestOperator.h; sourceTree = "<group>"; };
+		4E35414B1AC1CA0F0058C60E /* DLLAFNetworkingRequestOperator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLLAFNetworkingRequestOperator.m; sourceTree = "<group>"; };
+		4E35414D1AC1CA280058C60E /* DLLASIHTTPRequestOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLLASIHTTPRequestOperator.h; sourceTree = "<group>"; };
+		4E35414E1AC1CA280058C60E /* DLLASIHTTPRequestOperator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLLASIHTTPRequestOperator.m; sourceTree = "<group>"; };
 		4E881E041966351400B95218 /* DLLHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLLHTTPRequest.h; sourceTree = "<group>"; };
 		4E881E051966351400B95218 /* DLLHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLLHTTPRequest.m; sourceTree = "<group>"; };
 		4E881E061966351400B95218 /* DLLHTTPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLLHTTPResponse.h; sourceTree = "<group>"; };
@@ -122,8 +131,8 @@
 		4E881E451966351400B95218 /* ASINetworkQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASINetworkQueue.h; sourceTree = "<group>"; };
 		4E881E461966351400B95218 /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASINetworkQueue.m; sourceTree = "<group>"; };
 		4E881E471966351400B95218 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
-		4E881E481966351400B95218 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		4E881E491966351400B95218 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		4E881E481966351400B95218 /* ASIReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIReachability.h; sourceTree = "<group>"; };
+		4E881E491966351400B95218 /* ASIReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIReachability.m; sourceTree = "<group>"; };
 		4E881E4A1966351400B95218 /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
 		4E881E4B1966351400B95218 /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
 		4EC234B61932E46100BB16AF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -159,6 +168,8 @@
 			isa = PBXGroup;
 			children = (
 				4E881E0B1966351400B95218 /* Libs */,
+				4E3541471AC1C6420058C60E /* DLLRequestOperator.h */,
+				4E3541481AC1C6420058C60E /* DLLRequestOperator.m */,
 				4E881E041966351400B95218 /* DLLHTTPRequest.h */,
 				4E881E051966351400B95218 /* DLLHTTPRequest.m */,
 				4E881E061966351400B95218 /* DLLHTTPResponse.h */,
@@ -168,6 +179,10 @@
 				4E881E0A1966351400B95218 /* DLLHTTPUtil.m */,
 				4E881E4A1966351400B95218 /* NSString+URLEncoding.h */,
 				4E881E4B1966351400B95218 /* NSString+URLEncoding.m */,
+				4E35414A1AC1CA0F0058C60E /* DLLAFNetworkingRequestOperator.h */,
+				4E35414B1AC1CA0F0058C60E /* DLLAFNetworkingRequestOperator.m */,
+				4E35414D1AC1CA280058C60E /* DLLASIHTTPRequestOperator.h */,
+				4E35414E1AC1CA280058C60E /* DLLASIHTTPRequestOperator.m */,
 			);
 			path = DLLHTTPUtil;
 			sourceTree = "<group>";
@@ -263,8 +278,8 @@
 				4E881E451966351400B95218 /* ASINetworkQueue.h */,
 				4E881E461966351400B95218 /* ASINetworkQueue.m */,
 				4E881E471966351400B95218 /* ASIProgressDelegate.h */,
-				4E881E481966351400B95218 /* Reachability.h */,
-				4E881E491966351400B95218 /* Reachability.m */,
+				4E881E481966351400B95218 /* ASIReachability.h */,
+				4E881E491966351400B95218 /* ASIReachability.m */,
 			);
 			path = ASIHttpRequest;
 			sourceTree = "<group>";
@@ -352,9 +367,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E35414F1AC1CA280058C60E /* DLLASIHTTPRequestOperator.m in Sources */,
+				4E3541491AC1C6420058C60E /* DLLRequestOperator.m in Sources */,
 				4E881E691966351400B95218 /* NSString+URLEncoding.m in Sources */,
 				4E881E641966351400B95218 /* ASIFormDataRequest.m in Sources */,
 				4E881E4F1966351400B95218 /* AFHTTPRequestOperation.m in Sources */,
+				4E35414C1AC1CA0F0058C60E /* DLLAFNetworkingRequestOperator.m in Sources */,
 				4E881E5C1966351400B95218 /* UIImageView+AFNetworking.m in Sources */,
 				4E881E4E1966351400B95218 /* DLLHTTPUtil.m in Sources */,
 				4E881E501966351400B95218 /* AFHTTPRequestOperationManager.m in Sources */,
@@ -377,7 +395,7 @@
 				4E881E581966351400B95218 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				4E881E621966351400B95218 /* ASIDataDecompressor.m in Sources */,
 				4E881E571966351400B95218 /* AFURLSessionManager.m in Sources */,
-				4E881E681966351400B95218 /* Reachability.m in Sources */,
+				4E881E681966351400B95218 /* ASIReachability.m in Sources */,
 				4E881E671966351400B95218 /* ASINetworkQueue.m in Sources */,
 				4E881E4C1966351400B95218 /* DLLHTTPRequest.m in Sources */,
 				4E881E601966351400B95218 /* ASIAuthenticationDialog.m in Sources */,
