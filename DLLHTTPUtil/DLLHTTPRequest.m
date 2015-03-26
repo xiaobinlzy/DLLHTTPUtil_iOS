@@ -62,7 +62,7 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@, %@", [super description], self.url];
+    return [NSString stringWithFormat:@"%@, %@", [super description], [DLLHTTPUtil urlFormWithHostAddress:_url andParameters:_params].absoluteString];
 }
 
 - (void)dealloc
@@ -251,6 +251,7 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
                 [_delegate requestEnd:self];
             });
         }
+        NSLog(@"HTTP REQUEST FAILED: %@\nERROR: %@", self, error);
     });
 }
 

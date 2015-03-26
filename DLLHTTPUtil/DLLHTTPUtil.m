@@ -167,4 +167,8 @@ OSStatus extractIdentityAndTrust(CFDataRef inP12data, SecIdentityRef *identity, 
     return [self paramsOfURL:url encoding:NSUTF8StringEncoding];
 }
 
++ (NSString *)URL:(NSString *)URL appendWithPath:(NSString *)path {
+    return [NSString stringWithFormat:@"%@/%@", URL, path];
+}
+
 @end

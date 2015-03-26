@@ -46,6 +46,8 @@
 + (NSString *)URLDecodingFromString:(NSString *)string encoding:(NSStringEncoding)encoding;
 + (NSString *)URLDecodingFromString:(NSString *)string;
 
++ (NSString *)URL:(NSString *)URL appendWithPath:(NSString *)path;
+
 + (NSDictionary *)paramsOfURL:(NSString *)url encoding:(NSStringEncoding)encoding;
 + (NSDictionary *)paramsOfURL:(NSString *)url;
 
