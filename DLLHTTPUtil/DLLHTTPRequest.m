@@ -195,11 +195,6 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
         if (_requestStatus == DLLHTTPRequestStateExecuting) {
             [_operator cancel];
             _requestStatus = DLLHTTPRequestStateCancel;
-            if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
-                dispatch_async(_requestQueue, ^{
-                    [_delegate requestEnd:self];
-                });
-            }
         }
     });
 }

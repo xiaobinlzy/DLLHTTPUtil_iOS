@@ -168,6 +168,12 @@ OSStatus extractIdentityAndTrust(CFDataRef inP12data, SecIdentityRef *identity, 
 }
 
 + (NSString *)URL:(NSString *)URL appendWithPath:(NSString *)path {
+    if ([URL hasSuffix:@"/"]) {
+        URL = [URL substringToIndex:URL.length - 1];
+    }
+    if ([path hasPrefix:@"/"]) {
+        path = [path substringFromIndex:1];
+    }
     return [NSString stringWithFormat:@"%@/%@", URL, path];
 }
 
