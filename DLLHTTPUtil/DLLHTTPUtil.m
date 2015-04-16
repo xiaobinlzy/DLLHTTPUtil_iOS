@@ -145,17 +145,23 @@ OSStatus extractIdentityAndTrust(CFDataRef inP12data, SecIdentityRef *identity, 
 
 + (NSDictionary *)paramsOfURL:(NSString *)url encoding:(NSStringEncoding)encoding
 {
-    NSMutableDictionary *result = [NSMutableDictionary dictionary];
     NSUInteger paramIndex = [url rangeOfString:@"?"].location;
     if (paramIndex != NSNotFound && url.length > paramIndex + 1) {
         NSString *paramString = [url substringFromIndex:paramIndex + 1];
-        NSArray *nameValuePairs = [paramString componentsSeparatedByString:@"&"];
-        for (NSString *nameValueString in nameValuePairs) {
-            NSArray *nameValue = [nameValueString componentsSeparatedByString:@"="];
-            if (nameValue.count == 2) {
-                if ([nameValue firstObject] && [nameValue lastObject]) {
-                    [result setObject:[self URLDecodingFromString:[nameValue lastObject] encoding:encoding] forKey:[self URLDecodingFromString:[nameValue firstObject] encoding:encoding]];
-                }
+        return [self paramsOfURLParameters:paramString withEncoding:encoding];
+    }
+    return nil;
+}
+
++ (NSDictionary *)paramsOfURLParameters:(NSString *)parameters withEncoding:(NSStringEncoding)encoding {
+    
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    NSArray *nameValuePairs = [parameters componentsSeparatedByString:@"&"];
+    for (NSString *nameValueString in nameValuePairs) {
+        NSArray *nameValue = [nameValueString componentsSeparatedByString:@"="];
+        if (nameValue.count == 2) {
+            if ([nameValue firstObject] && [nameValue lastObject]) {
+                [result setObject:[self URLDecodingFromString:[nameValue lastObject] encoding:encoding] forKey:[self URLDecodingFromString:[nameValue firstObject] encoding:encoding]];
             }
         }
     }

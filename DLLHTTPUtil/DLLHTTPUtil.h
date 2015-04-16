@@ -51,4 +51,6 @@
 + (NSDictionary *)paramsOfURL:(NSString *)url encoding:(NSStringEncoding)encoding;
 + (NSDictionary *)paramsOfURL:(NSString *)url;
 
++ (NSDictionary *)paramsOfURLParameters:(NSString *)parameters withEncoding:(NSStringEncoding)encoding;
+
 @end
