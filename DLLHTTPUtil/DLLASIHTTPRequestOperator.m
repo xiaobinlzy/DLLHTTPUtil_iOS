@@ -39,7 +39,15 @@
         case DLLHTTPRequestMethodPost:
             request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:_request.url]];
             for (NSString *key in _request.params) {
-                [(ASIFormDataRequest *)request addPostValue:[_request.params objectForKey:key] forKey:key];
+                id value = [_request.params objectForKey:key];
+                if ([value isKindOfClass:[NSArray class]]) {
+                    NSArray * array = (NSArray *) value;
+                    for (id item in array) {
+                        [(ASIFormDataRequest *)request addPostValue:item forKey:key];
+                    }
+                } else {
+                    [(ASIFormDataRequest *)request addPostValue:value forKey:key];
+                }
             }
             
             break;
