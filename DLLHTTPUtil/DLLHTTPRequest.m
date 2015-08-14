@@ -71,6 +71,7 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
     [_params release];
     [_requestHeaders release];
     [_operator release];
+    [_callback release];
     dispatch_release(_queue);
     [super dealloc];
 }
@@ -216,16 +217,17 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
             return;
         }
         _requestStatus = DLLHTTPRequestStateDone;
-        if (_delegate && [_delegate respondsToSelector:@selector(requestFinished:responseString:)]) {
-            dispatch_async(_requestQueue, ^{
+        dispatch_async(_requestQueue, ^{
+            if (_delegate && [_delegate respondsToSelector:@selector(requestFinished:responseString:)]) {
                 [_delegate requestFinished:self responseString:self.response.responseString];
-            });
-        }
-        if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
-            dispatch_async(_requestQueue, ^{
+            }
+            if (_callback) {
+                _callback(self, self.response.responseString, nil);
+            }
+            if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
                 [_delegate requestEnd:self];
-            });
-        }
+            }
+        });
     });
 }
 
@@ -236,16 +238,18 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
             return;
         }
         _requestStatus = DLLHTTPRequestStateDone;
-        if (_delegate && [_delegate respondsToSelector:@selector(requestFailed:error:)]) {
-            dispatch_async(_requestQueue, ^{
+        dispatch_async(_requestQueue, ^{
+            if (_delegate && [_delegate respondsToSelector:@selector(requestFailed:error:)]) {
                 [_delegate requestFailed:self error:error];
-            });
-        }
-        if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
-            dispatch_async(_requestQueue, ^{
+            }
+            
+            if (_callback) {
+                _callback(self, nil, error);
+            }
+            if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
                 [_delegate requestEnd:self];
-            });
-        }
+            }
+        });
         NSLog(@"HTTP REQUEST FAILED: %@\nERROR: %@", self, error);
     });
 }

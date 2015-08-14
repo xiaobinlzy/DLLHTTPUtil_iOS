@@ -53,6 +53,8 @@ typedef enum {
     DLLHTTPRequestMethodPost,
 } DLLHTTPRequestMethod;
 
+typedef void (^DLLHTTPCallback) (DLLHTTPRequest * request, NSString * responseString, NSError * error);
+
 /**
  负责请求的HttpRequest对象
  **/
@@ -79,9 +81,14 @@ typedef enum {
 @property (nonatomic, assign) NSUInteger timeoutIntervel;
 
 /**
- 代理对象负责回调
+ 代理对象负责回调。会先处理delegate，后处理block。
  **/
 @property (nonatomic, assign) id<DLLHTTPRequestDelegate> delegate;
+
+/**
+ *  负责回调的block。会先处理delegate，后处理block。
+ */
+@property (nonatomic, copy) DLLHTTPCallback callback;
 
 /**
  为请求添加的标签。
