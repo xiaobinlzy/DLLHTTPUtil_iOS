@@ -13,8 +13,7 @@
 static AFSecurityPolicy *__securityPolicy;
 static NSURLCredential *__credential;
 
-+ (AFSecurityPolicy *)defaultSecurityPolciy
-{
++ (AFSecurityPolicy *)defaultSecurityPolciy {
     if (__securityPolicy == nil) {
         @synchronized (self) {
             __securityPolicy = [[AFSecurityPolicy defaultPolicy] retain];
@@ -23,29 +22,23 @@ static NSURLCredential *__credential;
     return __securityPolicy;
 }
 
-+ (AFSecurityPolicy *)createDefaultSecurityPolicyWithCertificatePath:(NSString *)cerPath
-{
++ (AFSecurityPolicy *)createDefaultSecurityPolicyWithCertificatePath:(NSString *)cerPath {
     if (__securityPolicy != nil) {
-        @synchronized (self) {
-            [__securityPolicy release];
-            __securityPolicy = nil;
-        }
+        [__securityPolicy release];
+        __securityPolicy = nil;
     }
     NSData *cerData = [NSData dataWithContentsOfFile:cerPath];
-    __securityPolicy = [[AFSecurityPolicy alloc] init];
+    __securityPolicy = [[AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate] retain];
     [__securityPolicy setAllowInvalidCertificates:YES];
-    [__securityPolicy setSSLPinningMode:AFSSLPinningModeCertificate];
     [__securityPolicy setPinnedCertificates:[NSArray arrayWithObject:cerData]];
     return __securityPolicy;
 }
 
-+ (NSURLCredential *)defaultCredential
-{
++ (NSURLCredential *)defaultCredential {
     return __credential;
 }
 
-OSStatus extractIdentityAndTrust(CFDataRef inP12data, SecIdentityRef *identity, SecTrustRef *trust, NSString* password)
-{
+OSStatus extractIdentityAndTrust(CFDataRef inP12data, SecIdentityRef *identity, SecTrustRef *trust, NSString* password) {
     OSStatus securityError = errSecSuccess;
     
     CFStringRef pwd = (CFStringRef) password;
@@ -123,7 +116,7 @@ OSStatus extractIdentityAndTrust(CFDataRef inP12data, SecIdentityRef *identity, 
     NSURL *url = [NSURL URLWithString:urlString];
     [urlString release];
     return url;
-
+    
 }
 
 
