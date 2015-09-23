@@ -11,6 +11,10 @@
 @class DLLHTTPRequest;
 @class DLLHTTPResponse;
 
+typedef NS_ENUM(NSInteger, DLLHTTPRequestOperatorType) {
+    DLLHTTPRequestOperatorTypeASI,
+    DLLHTTPRequestOperatorTypeAFNetworking
+};
 
 /**
 HttpRequest的回调协议
@@ -112,6 +116,11 @@ typedef void (^DLLHTTPCallback) (DLLHTTPRequest * request, NSString * responseSt
 
 
 @property (nonatomic, assign) DLLHTTPRequestMethod requestMethod;
+
+/**
+ *  请求使用的框架。
+ */
+@property (nonatomic, assign) DLLHTTPRequestOperatorType operatorType;
 
 #pragma mark - methods
 /**
