@@ -184,7 +184,15 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 
 
 
+- (void)startGetRequestWithCallback:(DLLHTTPCallback)callback {
+    self.callback = callback;
+    [self startGetRequest];
+}
 
+- (void)startPostRequestWithCallback:(DLLHTTPCallback)callback {
+    self.callback = callback;
+    [self startPostRequest];
+}
 
 
 + (void)setDefaultTimeoutIntervel:(NSUInteger)timeoutIntervel

@@ -139,6 +139,20 @@ typedef void (^DLLHTTPCallback) (DLLHTTPRequest * request, NSString * responseSt
  **/
 - (void)startPostRequest;
 
+/**
+ *  开始GET异步请求
+ *
+ *  @param callback 回调block。
+ */
+- (void)startGetRequestWithCallback:(DLLHTTPCallback)callback;
+
+/**
+ *  开始POST异步请求
+ *
+ *  @param callback 回调callback
+ */
+- (void)startPostRequestWithCallback:(DLLHTTPCallback)callback;
+
 /** 重试请求 **/
 - (void)retry;
 
