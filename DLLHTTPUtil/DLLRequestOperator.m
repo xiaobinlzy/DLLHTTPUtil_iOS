@@ -10,16 +10,16 @@
 
 @implementation DLLRequestOperator
 
-@synthesize request = _request;
+@synthesize reporter = _reporter;
 @synthesize response = _response;
 
 
 - (void)startGet {
-    [_request retain];
+    [_reporter retain];
 }
 
 - (void)startPost {
-    [_request retain];
+    [_reporter retain];
 }
 
 - (void)cancel {
@@ -27,7 +27,7 @@
 }
 
 - (void)reportRequestEnd {
-    [_request autorelease];
+    [_reporter autorelease];
 }
 
 - (void)dealloc {

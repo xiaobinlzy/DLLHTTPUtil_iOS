@@ -179,6 +179,4 @@ typedef void (^DLLHTTPCallback) (DLLHTTPRequest * request, NSString * responseSt
 
 - (void)setRequestHeaders:(NSDictionary *)headers;
 - (NSDictionary *)requestHeaders;
-- (void)reportFailed:(NSError *)error;
-- (void)reportFinish;
 @end

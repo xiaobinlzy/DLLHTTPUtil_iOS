@@ -11,13 +11,12 @@
 #import "DLLHTTPUtil.h"
 #import "DLLAFNetworkingRequestOperator.h"
 #import "DLLASIHTTPRequestOperator.h"
-@interface DLLHTTPRequest()
+@interface DLLHTTPRequest() <DLLRequestOoperatorReporter>
 
 @end
 
 @implementation DLLHTTPRequest {
-    dispatch_queue_t _queue;
-    dispatch_queue_t _requestQueue;
+    dispatch_queue_t _requestQueue; // weak
     DLLRequestOperator *_operator;
 }
 
@@ -49,7 +48,6 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
         _timeoutIntervel = gDefaultTimeoutIntervel;
         _requestStatus = DLLHTTPRequestStatePrepare;
         _responseEncoding = NSUTF8StringEncoding;
-        _queue = dispatch_queue_create("dllhttprequest.dispatch.queue", DISPATCH_QUEUE_SERIAL);
         
     }
     return self;
@@ -72,7 +70,6 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
     [_requestHeaders release];
     [_operator release];
     [_callback release];
-    dispatch_release(_queue);
     [super dealloc];
 }
 
@@ -109,27 +106,25 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
         _requestQueue = dispatch_get_current_queue();
 #pragma clang diagnostic pop
     }
-    dispatch_async(_queue, ^{
-        if (self.requestStatus == DLLHTTPRequestStateDone || self.requestStatus == DLLHTTPRequestStateCancel || self.requestStatus == DLLHTTPRequestStatePrepare) {
-            _requestStatus = DLLHTTPRequestStatePrepare;
-            switch (self.requestMethod) {
-                case DLLHTTPRequestMethodPost:
-                    dispatch_async(_requestQueue, ^{
-                        [self startPostRequest];
-                    });
-                    break;
-                case DLLHTTPRequestMethodGet:
-                    dispatch_async(_requestQueue, ^{
-                        [self startGetRequest];
-                    });
-                    break;
-                default:
-                    break;
-            }
-        } else {
-            NSLog(@"请求必须已经完成，才可以重试");
+    if (self.requestStatus == DLLHTTPRequestStateDone || self.requestStatus == DLLHTTPRequestStateCancel || self.requestStatus == DLLHTTPRequestStatePrepare) {
+        _requestStatus = DLLHTTPRequestStatePrepare;
+        switch (self.requestMethod) {
+            case DLLHTTPRequestMethodPost:
+                dispatch_async(_requestQueue, ^{
+                    [self startPostRequest];
+                });
+                break;
+            case DLLHTTPRequestMethodGet:
+                dispatch_async(_requestQueue, ^{
+                    [self startGetRequest];
+                });
+                break;
+            default:
+                break;
         }
-    });
+    } else {
+        NSLog(@"请求必须已经完成，才可以重试");
+    }
 }
 
 - (void)createOperator {
@@ -144,7 +139,7 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
         default:
             break;
     }
-    _operator.request = self;
+    _operator.reporter = self;
 }
 
 - (void)startGetRequest
@@ -153,15 +148,13 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     _requestQueue = dispatch_get_current_queue();
 #pragma clang diagnostic pop
-    dispatch_async(_queue, ^{
-        if (_requestStatus == DLLHTTPRequestStatePrepare) {
-            _requestStatus = DLLHTTPRequestStateExecuting;
-            _requestMethod = DLLHTTPRequestMethodGet;
-            [self onRequestStart];
-            [self createOperator];
-            [_operator startGet];
-        }
-    });
+    if (_requestStatus == DLLHTTPRequestStatePrepare) {
+        _requestStatus = DLLHTTPRequestStateExecuting;
+        _requestMethod = DLLHTTPRequestMethodGet;
+        [self onRequestStart];
+        [self createOperator];
+        [_operator startGet];
+    }
 }
 
 - (void)startPostRequest
@@ -170,16 +163,13 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     _requestQueue = dispatch_get_current_queue();
 #pragma clang diagnostic pop
-    dispatch_async(_queue, ^{
-        if (_requestStatus == DLLHTTPRequestStatePrepare) {
-            _requestStatus = DLLHTTPRequestStateExecuting;
-            _requestMethod = DLLHTTPRequestMethodPost;
-            [self onRequestStart];
-            [self createOperator];
-            [_operator startPost];
-        }
-        
-    });
+    if (_requestStatus == DLLHTTPRequestStatePrepare) {
+        _requestStatus = DLLHTTPRequestStateExecuting;
+        _requestMethod = DLLHTTPRequestMethodPost;
+        [self onRequestStart];
+        [self createOperator];
+        [_operator startPost];
+    }
 }
 
 
@@ -209,12 +199,10 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 - (void)clearDelegateAndCancel
 {
     _delegate = nil;
-    dispatch_async(_queue, ^{
-        if (_requestStatus == DLLHTTPRequestStateExecuting) {
-            [_operator cancel];
-            _requestStatus = DLLHTTPRequestStateCancel;
-        }
-    });
+    if (_requestStatus == DLLHTTPRequestStateExecuting) {
+        [_operator cancel];
+        _requestStatus = DLLHTTPRequestStateCancel;
+    }
 }
 
 - (void)onRequestStart
@@ -229,46 +217,42 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 
 - (void)reportFinish
 {
-    dispatch_async(_queue, ^{
-        if (_requestStatus != DLLHTTPRequestStateExecuting) {
-            return;
+    if (_requestStatus != DLLHTTPRequestStateExecuting) {
+        return;
+    }
+    _requestStatus = DLLHTTPRequestStateDone;
+    dispatch_async(_requestQueue, ^{
+        if (_delegate && [_delegate respondsToSelector:@selector(requestFinished:responseString:)]) {
+            [_delegate requestFinished:self responseString:self.response.responseString];
         }
-        _requestStatus = DLLHTTPRequestStateDone;
-        dispatch_async(_requestQueue, ^{
-            if (_delegate && [_delegate respondsToSelector:@selector(requestFinished:responseString:)]) {
-                [_delegate requestFinished:self responseString:self.response.responseString];
-            }
-            if (_callback) {
-                _callback(self, self.response.responseString, nil);
-            }
-            if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
-                [_delegate requestEnd:self];
-            }
-        });
+        if (_callback) {
+            _callback(self, self.response.responseString, nil);
+        }
+        if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
+            [_delegate requestEnd:self];
+        }
     });
 }
 
 - (void)reportFailed:(NSError *)error
 {
-    dispatch_async(_queue, ^{
-        if (_requestStatus != DLLHTTPRequestStateExecuting) {
-            return;
+    if (_requestStatus != DLLHTTPRequestStateExecuting) {
+        return;
+    }
+    _requestStatus = DLLHTTPRequestStateDone;
+    dispatch_async(_requestQueue, ^{
+        if (_delegate && [_delegate respondsToSelector:@selector(requestFailed:error:)]) {
+            [_delegate requestFailed:self error:error];
         }
-        _requestStatus = DLLHTTPRequestStateDone;
-        dispatch_async(_requestQueue, ^{
-            if (_delegate && [_delegate respondsToSelector:@selector(requestFailed:error:)]) {
-                [_delegate requestFailed:self error:error];
-            }
-            
-            if (_callback) {
-                _callback(self, nil, error);
-            }
-            if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
-                [_delegate requestEnd:self];
-            }
-        });
-        NSLog(@"HTTP REQUEST FAILED: %@\nERROR: %@", self, error);
+        
+        if (_callback) {
+            _callback(self, nil, error);
+        }
+        if (_delegate && [_delegate respondsToSelector:@selector(requestEnd:)]) {
+            [_delegate requestEnd:self];
+        }
     });
+    NSLog(@"HTTP REQUEST FAILED: %@\nERROR: %@", self, error);
 }
 
 @end

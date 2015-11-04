@@ -10,13 +10,21 @@
 #import "DLLHTTPRequest.h"
 
 
+@protocol DLLRequestOoperatorReporter <NSObject>
+
+- (void)reportFinish;
+
+- (void)reportFailed:(NSError *)error;
+
+@end
+
 
 @interface DLLRequestOperator : NSObject {
     DLLHTTPResponse *_response;
-    DLLHTTPRequest *_request;
+    DLLHTTPRequest<DLLRequestOoperatorReporter> *_reporter;
 }
 
-@property (assign, nonatomic) DLLHTTPRequest *request;
+@property (assign, nonatomic) DLLHTTPRequest<DLLRequestOoperatorReporter> *reporter;
 @property (readonly, nonatomic) DLLHTTPResponse *response;
 
 - (void)startPost;

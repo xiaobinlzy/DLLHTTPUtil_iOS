@@ -34,12 +34,12 @@
     ASIHTTPRequest *request = nil;
     switch (method) {
         case DLLHTTPRequestMethodGet:
-            request = [ASIHTTPRequest requestWithURL:[DLLHTTPUtil urlFormWithHostAddress:_request.url andParameters:_request.params]];
+            request = [ASIHTTPRequest requestWithURL:[DLLHTTPUtil urlFormWithHostAddress:_reporter.url andParameters:_reporter.params]];
             break;
         case DLLHTTPRequestMethodPost:
-            request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:_request.url]];
-            for (NSString *key in _request.params) {
-                id value = [_request.params objectForKey:key];
+            request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:_reporter.url]];
+            for (NSString *key in _reporter.params) {
+                id value = [_reporter.params objectForKey:key];
                 if ([value isKindOfClass:[NSArray class]]) {
                     NSArray * array = (NSArray *) value;
                     for (id item in array) {
@@ -55,11 +55,11 @@
             break;
     }
     request.delegate = self;
-    request.timeOutSeconds = _request.timeoutIntervel;
-    request.defaultResponseEncoding = _request.responseEncoding;
+    request.timeOutSeconds = _reporter.timeoutIntervel;
+    request.defaultResponseEncoding = _reporter.responseEncoding;
     request.allowCompressedResponse = YES;
-    for (NSString *key in _request.requestHeaders) {
-        [request addRequestHeader:key value:[_request.requestHeaders objectForKey:key]];
+    for (NSString *key in _reporter.requestHeaders) {
+        [request addRequestHeader:key value:[_reporter.requestHeaders objectForKey:key]];
     }
     return request;
 }
@@ -74,7 +74,7 @@
 {
     [_response release];
     _response = [[DLLHTTPResponse alloc] initWithStatusCode:request.responseStatusCode responseData:request.responseData stringEncoding:request.responseEncoding responseHeaders:request.responseHeaders responseString: request.responseString];
-    [_request reportFinish];
+    [_reporter reportFinish];
     [self reportRequestEnd];
 }
 
@@ -82,7 +82,7 @@
 {
     [_response release];
     _response = [[DLLHTTPResponse alloc] initWithStatusCode:request.responseStatusCode responseData:request.responseData stringEncoding:request.responseEncoding responseHeaders:request.responseHeaders responseString:request.responseString];
-    [_request reportFailed:request.error];
+    [_reporter reportFailed:request.error];
     [self reportRequestEnd];
 }
 
