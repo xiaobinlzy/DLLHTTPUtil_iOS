@@ -44,6 +44,7 @@ HttpRequest的回调协议
 - (void)requestEnd:(DLLHTTPRequest *)request;
 @end
 
+
 typedef enum {
     DLLHTTPRequestStatePrepare,
     DLLHTTPRequestStateExecuting,
@@ -52,7 +53,6 @@ typedef enum {
 } DLLHTTPRequestStatus;
 
 typedef enum {
-    DLLHTTPRequestMethodUnknown,
     DLLHTTPRequestMethodGet,
     DLLHTTPRequestMethodPost,
 } DLLHTTPRequestMethod;
@@ -75,7 +75,7 @@ typedef void (^DLLHTTPCallback) (DLLHTTPRequest * request, NSString * responseSt
 @property (nonatomic, readonly) NSString *url;
 
 /**
- 获取请求的响应对象。如果请求未被成功响应，则为nil。
+ 获取请求的响应对象。如果请求未被响应，则为nil。
  **/
 @property (nonatomic, readonly) DLLHTTPResponse *response;
 

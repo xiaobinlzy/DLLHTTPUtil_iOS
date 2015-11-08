@@ -129,6 +129,7 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 
 - (void)createOperator {
     [_operator release];
+    _operator = nil;
     switch (_operatorType) {
         case DLLHTTPRequestOperatorTypeASI:
             _operator = [[DLLASIHTTPRequestOperator alloc] init];
