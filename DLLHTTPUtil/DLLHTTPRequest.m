@@ -200,6 +200,10 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 - (void)clearDelegateAndCancel
 {
     _delegate = nil;
+    if (_callback) {
+        [_callback release];
+        _callback = nil;
+    }
     if (_requestStatus == DLLHTTPRequestStateExecuting) {
         [_operator cancel];
         _requestStatus = DLLHTTPRequestStateCancel;
