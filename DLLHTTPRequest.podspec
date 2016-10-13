@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 
   s.homepage     = "http://10.0.0.236/lizhongyu/DLLHTTPRequest/"
 
-  s.license      = "MIT"
+  s.license      = { :type => 'MIT', :file => 'LICENSE' }
 
   s.author             = { "xiaobinlzy" => "xiaobinlzy@163.com" }
 

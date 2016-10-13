@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "DLLHTTPResponse.h"
+#import "DLLHTTPUtil.h"
+#import "NSString+URLEncoding.h"
 
 @class DLLHTTPRequest;
 
