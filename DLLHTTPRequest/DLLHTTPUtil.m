@@ -29,7 +29,7 @@ static NSURLCredential *__credential;
     NSData *cerData = [NSData dataWithContentsOfFile:cerPath];
     __securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
     [__securityPolicy setAllowInvalidCertificates:YES];
-    [__securityPolicy setPinnedCertificates:[NSArray arrayWithObject:cerData]];
+    [__securityPolicy setPinnedCertificates:[NSSet setWithArray:[NSArray arrayWithObject:cerData]]];
     return __securityPolicy;
 }
 
