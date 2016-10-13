@@ -1,0 +1,360 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4E8F08301DAF6B740025007B /* DLLAFNetworkingRequestOperator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F08231DAF6B740025007B /* DLLAFNetworkingRequestOperator.m */; };
+		4E8F08311DAF6B740025007B /* DLLHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F08251DAF6B740025007B /* DLLHTTPRequest.m */; };
+		4E8F08321DAF6B740025007B /* DLLHTTPResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F08271DAF6B740025007B /* DLLHTTPResponse.m */; };
+		4E8F08331DAF6B740025007B /* DLLHTTPUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F08291DAF6B740025007B /* DLLHTTPUtil.m */; };
+		4E8F08341DAF6B740025007B /* DLLRequestOperator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F082B1DAF6B740025007B /* DLLRequestOperator.m */; };
+		4E8F08351DAF6B740025007B /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F082D1DAF6B740025007B /* NSString+URLEncoding.m */; };
+		4E8F08361DAF6B740025007B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F082F1DAF6B740025007B /* Reachability.m */; };
+		A9239C48E123C3685F8081EA /* libPods-DLLHTTPRequest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BE40B2C7D71016B68F2BF04 /* libPods-DLLHTTPRequest.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4E8F08141DAF6ADC0025007B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1EEA3CD7B552E7E9FDD2A67D /* Pods-DLLHTTPRequest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DLLHTTPRequest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DLLHTTPRequest/Pods-DLLHTTPRequest.debug.xcconfig"; sourceTree = "<group>"; };
+		4E8F08161DAF6ADC0025007B /* libDLLHTTPRequest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDLLHTTPRequest.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E8F08221DAF6B740025007B /* DLLAFNetworkingRequestOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLLAFNetworkingRequestOperator.h; sourceTree = "<group>"; };
+		4E8F08231DAF6B740025007B /* DLLAFNetworkingRequestOperator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLLAFNetworkingRequestOperator.m; sourceTree = "<group>"; };
+		4E8F08241DAF6B740025007B /* DLLHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLLHTTPRequest.h; sourceTree = "<group>"; };
+		4E8F08251DAF6B740025007B /* DLLHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLLHTTPRequest.m; sourceTree = "<group>"; };
+		4E8F08261DAF6B740025007B /* DLLHTTPResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLLHTTPResponse.h; sourceTree = "<group>"; };
+		4E8F08271DAF6B740025007B /* DLLHTTPResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLLHTTPResponse.m; sourceTree = "<group>"; };
+		4E8F08281DAF6B740025007B /* DLLHTTPUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLLHTTPUtil.h; sourceTree = "<group>"; };
+		4E8F08291DAF6B740025007B /* DLLHTTPUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLLHTTPUtil.m; sourceTree = "<group>"; };
+		4E8F082A1DAF6B740025007B /* DLLRequestOperator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLLRequestOperator.h; sourceTree = "<group>"; };
+		4E8F082B1DAF6B740025007B /* DLLRequestOperator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLLRequestOperator.m; sourceTree = "<group>"; };
+		4E8F082C1DAF6B740025007B /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
+		4E8F082D1DAF6B740025007B /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
+		4E8F082E1DAF6B740025007B /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		4E8F082F1DAF6B740025007B /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		8BE40B2C7D71016B68F2BF04 /* libPods-DLLHTTPRequest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DLLHTTPRequest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF428FED4D5C7D2E1766717E /* Pods-DLLHTTPRequest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DLLHTTPRequest.release.xcconfig"; path = "Pods/Target Support Files/Pods-DLLHTTPRequest/Pods-DLLHTTPRequest.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4E8F08131DAF6ADC0025007B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A9239C48E123C3685F8081EA /* libPods-DLLHTTPRequest.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		04A1A91BBBA4B0D8B4383D44 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1EEA3CD7B552E7E9FDD2A67D /* Pods-DLLHTTPRequest.debug.xcconfig */,
+				EF428FED4D5C7D2E1766717E /* Pods-DLLHTTPRequest.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		4E8F080D1DAF6ADC0025007B = {
+			isa = PBXGroup;
+			children = (
+				4E8F08181DAF6ADC0025007B /* DLLHTTPRequest */,
+				4E8F08171DAF6ADC0025007B /* Products */,
+				04A1A91BBBA4B0D8B4383D44 /* Pods */,
+				85F56B302C1017A75BF0B743 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		4E8F08171DAF6ADC0025007B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4E8F08161DAF6ADC0025007B /* libDLLHTTPRequest.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4E8F08181DAF6ADC0025007B /* DLLHTTPRequest */ = {
+			isa = PBXGroup;
+			children = (
+				4E8F08221DAF6B740025007B /* DLLAFNetworkingRequestOperator.h */,
+				4E8F08231DAF6B740025007B /* DLLAFNetworkingRequestOperator.m */,
+				4E8F08241DAF6B740025007B /* DLLHTTPRequest.h */,
+				4E8F08251DAF6B740025007B /* DLLHTTPRequest.m */,
+				4E8F08261DAF6B740025007B /* DLLHTTPResponse.h */,
+				4E8F08271DAF6B740025007B /* DLLHTTPResponse.m */,
+				4E8F08281DAF6B740025007B /* DLLHTTPUtil.h */,
+				4E8F08291DAF6B740025007B /* DLLHTTPUtil.m */,
+				4E8F082A1DAF6B740025007B /* DLLRequestOperator.h */,
+				4E8F082B1DAF6B740025007B /* DLLRequestOperator.m */,
+				4E8F082C1DAF6B740025007B /* NSString+URLEncoding.h */,
+				4E8F082D1DAF6B740025007B /* NSString+URLEncoding.m */,
+				4E8F082E1DAF6B740025007B /* Reachability.h */,
+				4E8F082F1DAF6B740025007B /* Reachability.m */,
+			);
+			path = DLLHTTPRequest;
+			sourceTree = "<group>";
+		};
+		85F56B302C1017A75BF0B743 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8BE40B2C7D71016B68F2BF04 /* libPods-DLLHTTPRequest.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4E8F08151DAF6ADC0025007B /* DLLHTTPRequest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E8F081F1DAF6ADC0025007B /* Build configuration list for PBXNativeTarget "DLLHTTPRequest" */;
+			buildPhases = (
+				14A9ECE319E4AB9138DBA042 /* [CP] Check Pods Manifest.lock */,
+				4E8F08121DAF6ADC0025007B /* Sources */,
+				4E8F08131DAF6ADC0025007B /* Frameworks */,
+				4E8F08141DAF6ADC0025007B /* CopyFiles */,
+				C2D79806E5ADD6D1405ECF2D /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DLLHTTPRequest;
+			productName = DLLHTTPRequest;
+			productReference = 4E8F08161DAF6ADC0025007B /* libDLLHTTPRequest.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4E8F080E1DAF6ADC0025007B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = DLL;
+				TargetAttributes = {
+					4E8F08151DAF6ADC0025007B = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 4E8F08111DAF6ADC0025007B /* Build configuration list for PBXProject "DLLHTTPRequest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4E8F080D1DAF6ADC0025007B;
+			productRefGroup = 4E8F08171DAF6ADC0025007B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4E8F08151DAF6ADC0025007B /* DLLHTTPRequest */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		14A9ECE319E4AB9138DBA042 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C2D79806E5ADD6D1405ECF2D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DLLHTTPRequest/Pods-DLLHTTPRequest-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4E8F08121DAF6ADC0025007B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E8F08351DAF6B740025007B /* NSString+URLEncoding.m in Sources */,
+				4E8F08341DAF6B740025007B /* DLLRequestOperator.m in Sources */,
+				4E8F08311DAF6B740025007B /* DLLHTTPRequest.m in Sources */,
+				4E8F08361DAF6B740025007B /* Reachability.m in Sources */,
+				4E8F08301DAF6B740025007B /* DLLAFNetworkingRequestOperator.m in Sources */,
+				4E8F08331DAF6B740025007B /* DLLHTTPUtil.m in Sources */,
+				4E8F08321DAF6B740025007B /* DLLHTTPResponse.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4E8F081D1DAF6ADC0025007B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4E8F081E1DAF6ADC0025007B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4E8F08201DAF6ADC0025007B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1EEA3CD7B552E7E9FDD2A67D /* Pods-DLLHTTPRequest.debug.xcconfig */;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		4E8F08211DAF6ADC0025007B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF428FED4D5C7D2E1766717E /* Pods-DLLHTTPRequest.release.xcconfig */;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4E8F08111DAF6ADC0025007B /* Build configuration list for PBXProject "DLLHTTPRequest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E8F081D1DAF6ADC0025007B /* Debug */,
+				4E8F081E1DAF6ADC0025007B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4E8F081F1DAF6ADC0025007B /* Build configuration list for PBXNativeTarget "DLLHTTPRequest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E8F08201DAF6ADC0025007B /* Debug */,
+				4E8F08211DAF6ADC0025007B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4E8F080E1DAF6ADC0025007B /* Project object */;
+}
