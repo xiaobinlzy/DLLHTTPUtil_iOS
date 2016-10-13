@@ -32,7 +32,7 @@ Pod::Spec.new do |s|
   s.source_files  = "Classes", "DLLHTTPRequest/**/*.{h,m}"
   s.exclude_files = "Classes/Exclude"
 
-  s.public_header_files = "Classes/**/*.h"
+  s.public_header_files = "DLLHTTPRequest/**/*.h"
 
 
 

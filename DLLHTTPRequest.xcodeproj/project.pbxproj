@@ -13,7 +13,6 @@
 		4E8F08331DAF6B740025007B /* DLLHTTPUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F08291DAF6B740025007B /* DLLHTTPUtil.m */; };
 		4E8F08341DAF6B740025007B /* DLLRequestOperator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F082B1DAF6B740025007B /* DLLRequestOperator.m */; };
 		4E8F08351DAF6B740025007B /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F082D1DAF6B740025007B /* NSString+URLEncoding.m */; };
-		4E8F08361DAF6B740025007B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8F082F1DAF6B740025007B /* Reachability.m */; };
 		A9239C48E123C3685F8081EA /* libPods-DLLHTTPRequest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BE40B2C7D71016B68F2BF04 /* libPods-DLLHTTPRequest.a */; };
 /* End PBXBuildFile section */
 
@@ -44,8 +43,6 @@
 		4E8F082B1DAF6B740025007B /* DLLRequestOperator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLLRequestOperator.m; sourceTree = "<group>"; };
 		4E8F082C1DAF6B740025007B /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
 		4E8F082D1DAF6B740025007B /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
-		4E8F082E1DAF6B740025007B /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		4E8F082F1DAF6B740025007B /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		8BE40B2C7D71016B68F2BF04 /* libPods-DLLHTTPRequest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DLLHTTPRequest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF428FED4D5C7D2E1766717E /* Pods-DLLHTTPRequest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DLLHTTPRequest.release.xcconfig"; path = "Pods/Target Support Files/Pods-DLLHTTPRequest/Pods-DLLHTTPRequest.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,8 +101,6 @@
 				4E8F082B1DAF6B740025007B /* DLLRequestOperator.m */,
 				4E8F082C1DAF6B740025007B /* NSString+URLEncoding.h */,
 				4E8F082D1DAF6B740025007B /* NSString+URLEncoding.m */,
-				4E8F082E1DAF6B740025007B /* Reachability.h */,
-				4E8F082F1DAF6B740025007B /* Reachability.m */,
 			);
 			path = DLLHTTPRequest;
 			sourceTree = "<group>";
@@ -213,7 +208,6 @@
 				4E8F08351DAF6B740025007B /* NSString+URLEncoding.m in Sources */,
 				4E8F08341DAF6B740025007B /* DLLRequestOperator.m in Sources */,
 				4E8F08311DAF6B740025007B /* DLLHTTPRequest.m in Sources */,
-				4E8F08361DAF6B740025007B /* Reachability.m in Sources */,
 				4E8F08301DAF6B740025007B /* DLLAFNetworkingRequestOperator.m in Sources */,
 				4E8F08331DAF6B740025007B /* DLLHTTPUtil.m in Sources */,
 				4E8F08321DAF6B740025007B /* DLLHTTPResponse.m in Sources */,
