@@ -42,5 +42,5 @@ DLLHTTPRequestDelegate | DLLHTTPRequest的回调代理，会对请求的生命�
 DLLRequestOperator | 具体使用HTTP框架执行网络请求的抽象类，它提供开始请求和取消请求的抽象方法，也对DLLHTTPRequest进行回调。 DLLHTTPRequest中会根据参数使用工厂方法生成DLLRequestOperator的某个子类来执行网络请求。
 DLLASIRequestOperator | DLLRequestOperator的子类之一，它使用ASIHttpRequest来进行网络请求。
 DLLAFNetworkingRequestOperator | DLLRequestOperator的子类之一，它使用AFNetworking来进行网络请求。
-DLLHTTPResponse | 网络请求返回数据的模型类,包括HTTP状态码、响应数据、响应字符串、响应头等等。
+DLLHTTPResponse | 网络请求返回数据的模型类，包括HTTP状态码、响应数据、响应字符串、响应头等等。
 
