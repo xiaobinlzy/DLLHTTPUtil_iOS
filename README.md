@@ -18,10 +18,11 @@ pod 'DLLHTTPRequest'    # HTTP中间层
 以提交用户反馈的接口为例，代码如下：
 
 ```
-//	使用dictionary来存储请求参数       NSMutableDictionary *params = [NSMutableDictionary dictionary]; 
-[params setInstance:comments forKey:@"comments"];[params setInstance:contact forKey:@"contact"];
-if (CHRUSER.isLogin) {	[params setInstance:CHRUSER.userId forKey:@"userId"]; 
-}[params setInstance:[UIDevice currentDevice].model forKey:@"deviceType"]; 
+//	使用dictionary来存储请求参数       
+NSMutableDictionary *params = [NSMutableDictionary dictionary]; 
+[params setInstance:comments forKey:@"comments"];
+[params setInstance:contact forKey:@"contact"];
+[params setInstance:[UIDevice currentDevice].model forKey:@"deviceType"]; 
 [params setInstance:[UIDevice currentDevice].systemVersion forKey:@"OSVersion"];
 
 // 创建请求对象
