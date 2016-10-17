@@ -1,9 +1,9 @@
-#DLLHTTPRequest说明文档#
+# DLLHTTPRequest说明文档
 ------------
 
-##说明##
+## 说明
 DLLHTTPRequest是一个基于当前iOS流行的http框架（目前是ASIHttpRequest和AFNetworking）封装的一套类库，作为http请求中间层，可以自由切换底层所使用的框架，对外部提供统一的API以供调用。这个中间层的目的是为了将业务代码与http框架隔离，这样在http框架更新或者更换的时候，不会对业务代码有任何伤害。
-##使用方法##
+## 使用方法
 在Podfile中加入source：
 
 ```
@@ -33,7 +33,7 @@ request.callback = ^(DLLHTTPRequest * request, NSString * responseString, NSErro
 // 开始POST请求
 [request startPostRequest];
 ```
-##主要类说明##
+## 主要类说明
 类名 | 说明
 --- | ---
 DLLHTTPRequest | 网络请求类，通过URL来初始化，可以设置请求参数、请求类型、请求头等属性，超时时长、回调代理和回调block，还可以通过参数来设置请求所使用的底层框架。
