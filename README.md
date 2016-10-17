@@ -6,18 +6,18 @@ DLLHTTPRequest是一个基于当前iOS流行的http框架（目前是ASIHttpRequ
 ## 使用方法
 在Podfile中加入source：
 
-```
+```ruby
 source 'http://10.0.0.236/lizhongyu/ChinaHRLibraryPodSpec.git'
 ```
 在Podfile中加入pod:
 
-```
+```ruby
 pod 'DLLHTTPRequest'    # HTTP中间层
 ```
 
 以提交用户反馈的接口为例，代码如下：
 
-```
+```objective-c
 //	使用dictionary来存储请求参数       
 NSMutableDictionary *params = [NSMutableDictionary dictionary]; 
 [params setInstance:comments forKey:@"comments"];
