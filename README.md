@@ -7,7 +7,7 @@ DLLHTTPRequest是一个基于当前iOS流行的http框架（目前是ASIHttpRequ
 在Podfile中加入source：
 
 ```ruby
-source 'http://10.0.0.236/lizhongyu/ChinaHRLibraryPodSpec.git'
+source 'http://10.0.0.236/iOS/DLLHTTPRequestPodSpec.git'
 ```
 在Podfile中加入pod:
 
