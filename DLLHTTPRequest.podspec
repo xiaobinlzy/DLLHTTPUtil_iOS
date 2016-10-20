@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   网络请求中间层，底层实现采用AFNetworking。
                    DESC
 
-  s.homepage     = "http://10.0.0.236/lizhongyu/DLLHTTPRequest/"
+  s.homepage     = "http://10.0.0.236/iOS/DLLHTTPRequest/"
 
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
 
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "7.0"
 
 
-  s.source       = { :git => "http://10.0.0.236/lizhongyu/DLLHTTPRequest.git", :tag => "#{s.version}" }
+  s.source       = { :git => "http://10.0.0.236/iOS/DLLHTTPRequest.git", :tag => "#{s.version}" }
 
 
   s.source_files  = "Classes", "DLLHTTPRequest/**/*.{h,m}"
