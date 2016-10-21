@@ -22,25 +22,22 @@ Pod::Spec.new do |s|
                        DESC
 
   s.homepage         = 'http://10.0.0.236/iOS/DLLHTTPRequest/'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'xiaobinlzy' => 'xiaobinlzy@163.com' }
-  s.source           = { :git => 'http://10.0.0.236/iOS/DLLHTTPRequest.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.default_subspec  = 'Binary'
+  s.source  = { :git => 'http://10.0.0.236/iOS/DLLHTTPRequest.git', :tag => s.version.to_s }
+
+  s.subspec 'Source' do |source| 
+    source.source_files = 'Source/DLLHTTPRequest/Classes/**/*'
+    source.public_header_files = 'Source/DLLHTTPRequest/Classes/**/*.h'
+    source.requires_arc = true
+    source.dependency 'AFNetworking'
+  end
+
+  s.subspec 'Binary' do |binary|
+    binary.vendored_frameworks = 'Binary/DLLHTTPRequest.framework'
+    binary.ios.framework = 'MobileCoreServices', 'CoreGraphics', 'Security', 'SystemConfiguration'
+  end
 
   s.ios.deployment_target = '8.0'
-
-  s.source_files = 'DLLHTTPRequest/Classes/**/*'
-  s.public_header_files = 'DLLHTTPRequest/Classes/**/*.h'
-
-  s.requires_arc = true
-  s.dependency 'AFNetworking'
-  
-  # s.resource_bundles = {
-  #   'DLLHTTPRequest' => ['DLLHTTPRequest/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
