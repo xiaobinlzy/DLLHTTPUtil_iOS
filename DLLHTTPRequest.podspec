@@ -26,12 +26,12 @@ Pod::Spec.new do |s|
   s.author           = { 'xiaobinlzy' => 'xiaobinlzy@163.com' }
   s.default_subspec  = 'Binary'
   s.source  = { :git => 'http://10.0.0.236/iOS/DLLHTTPRequest.git', :tag => s.version.to_s }
+  s.dependency 'AFNetworking'
 
   s.subspec 'Source' do |source| 
     source.source_files = 'DLLHTTPRequest/Classes/**/*'
     source.public_header_files = 'DLLHTTPRequest/Classes/**/*.h'
     source.requires_arc = true
-    source.dependency 'AFNetworking'
   end
 
   s.subspec 'Binary' do |binary|
