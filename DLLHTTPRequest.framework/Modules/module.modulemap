@@ -1,0 +1,6 @@
+framework module DLLHTTPRequest {
+  umbrella header "DLLHTTPRequest.h"
+
+  export *
+  module * { export * }
+}
