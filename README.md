@@ -1,20 +1,37 @@
-# DLLHTTPRequest说明文档
-------------
+# DLLHTTPRequest
+
+[![CI Status](http://img.shields.io/travis/xiaobinlzy/DLLHTTPRequest.svg?style=flat)](https://travis-ci.org/xiaobinlzy/DLLHTTPRequest)
+[![Version](https://img.shields.io/cocoapods/v/DLLHTTPRequest.svg?style=flat)](http://cocoapods.org/pods/DLLHTTPRequest)
+[![License](https://img.shields.io/cocoapods/l/DLLHTTPRequest.svg?style=flat)](http://cocoapods.org/pods/DLLHTTPRequest)
+[![Platform](https://img.shields.io/cocoapods/p/DLLHTTPRequest.svg?style=flat)](http://cocoapods.org/pods/DLLHTTPRequest)
+
+## Example
+
+To run the example project, clone the repo, and run `pod install` from the Example directory first.
+
+## Requirements
+AFNetworking
+
+## Installation
+
+DLLHTTPRequest is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```ruby
+pod "DLLHTTPRequest"
+```
+
+## Author
+
+xiaobinlzy, xiaobinlzy@163.com
+
+## License
+
+DLLHTTPRequest is available under the MIT license. See the LICENSE file for more info.
 
 ## 说明
 DLLHTTPRequest是一个基于当前iOS流行的http框架（目前是ASIHttpRequest和AFNetworking）封装的一套类库，作为http请求中间层，可以自由切换底层所使用的框架，对外部提供统一的API以供调用。这个中间层的目的是为了将业务代码与http框架隔离，这样在http框架更新或者更换的时候，不会对业务代码有任何伤害。
 ## 使用方法
-在Podfile中加入source：
-
-```ruby
-source 'http://10.0.0.236/iOS/DLLHTTPRequestPodSpec.git'
-```
-在Podfile中加入pod:
-
-```ruby
-pod 'DLLHTTPRequest'    # HTTP中间层
-```
-
 以提交用户反馈的接口为例，代码如下：
 
 ```objective-c
@@ -43,4 +60,3 @@ DLLRequestOperator | 具体使用HTTP框架执行网络请求的抽象类，它�
 DLLASIRequestOperator | DLLRequestOperator的子类之一，它使用ASIHttpRequest来进行网络请求。
 DLLAFNetworkingRequestOperator | DLLRequestOperator的子类之一，它使用AFNetworking来进行网络请求。
 DLLHTTPResponse | 网络请求返回数据的模型类，包括HTTP状态码、响应数据、响应字符串、响应头等等。
-
