@@ -9,29 +9,6 @@
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Requirements
-AFNetworking
-
-## Installation
-
-DLLHTTPRequest is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod "DLLHTTPRequest"
-```
-
-## Author
-
-xiaobinlzy, xiaobinlzy@163.com
-
-## License
-
-DLLHTTPRequest is available under the MIT license. See the LICENSE file for more info.
-
-## 说明
-DLLHTTPRequest是一个基于当前iOS流行的http框架（目前是ASIHttpRequest和AFNetworking）封装的一套类库，作为http请求中间层，可以自由切换底层所使用的框架，对外部提供统一的API以供调用。这个中间层的目的是为了将业务代码与http框架隔离，这样在http框架更新或者更换的时候，不会对业务代码有任何伤害。
-## 使用方法
 以提交用户反馈的接口为例，代码如下：
 
 ```objective-c
@@ -51,6 +28,35 @@ request.callback = ^(DLLHTTPRequest * request, NSString * responseString, NSErro
 // 开始POST请求
 [request startPostRequest];
 ```
+
+
+## Requirements
+AFNetworking	
+iOS 8.0
+
+## Installation
+
+DLLHTTPRequest is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```ruby
+source 'http://10.0.0.236/iOS/CHRLibrary.podspec.git'
+
+# target some project
+pod "DLLHTTPRequest"
+```
+
+## Author
+
+xiaobinlzy, xiaobinlzy@163.com
+
+## License
+
+DLLHTTPRequest is available under the MIT license. See the LICENSE file for more info.
+
+## 说明
+DLLHTTPRequest是一个基于当前iOS流行的http框架（目前是ASIHttpRequest和AFNetworking）封装的一套类库，作为http请求中间层，可以自由切换底层所使用的框架，对外部提供统一的API以供调用。这个中间层的目的是为了将业务代码与http框架隔离，这样在http框架更新或者更换的时候，不会对业务代码有任何伤害。
+
 ## 主要类说明
 类名 | 说明
 --- | ---
