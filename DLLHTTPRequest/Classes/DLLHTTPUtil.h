@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AFNetworking/AFNetworking.h>
 #import "DLLHTTPResponse.h"
 #import "DLLHTTPRequest.h"
 #import "NSString+URLEncoding.h"
@@ -17,17 +16,12 @@
 /** 
  初始化默认的SSL证书
  **/
-+ (AFSecurityPolicy *)createDefaultSecurityPolicyWithCertificatePath:(NSString *)cerPath;
++ (void)createDefaultSecurityPolicyWithCertificatePath:(NSString *)cerPath;
 
 /**
  初始化SSL客户端请求证书
  **/
 + (NSURLCredential *)createDefaultCredentialWithCertificatePath:(NSString *)cerPath andPassword:(NSString *)password;
-
-/**
- 获得自定义的SSL证书
- **/
-+ (AFSecurityPolicy *)defaultSecurityPolciy;
 
 /**
  SSL客户端请求证书
