@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5468D012B74F705F4539C13B /* Pods_DLLHTTPRequest_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69144BD15297D150EA528F6A /* Pods_DLLHTTPRequest_Example.framework */; };
+		57032F9A0C5D97C80608567D /* Pods_DLLHTTPRequest_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B64406A6B6661090D6EC5174 /* Pods_DLLHTTPRequest_Example.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -21,8 +21,8 @@
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
-		78DDF8B11618F706541783A9 /* Pods_DLLHTTPRequest_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34FD9678A288625FD3934255 /* Pods_DLLHTTPRequest_Tests.framework */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
+		8EA567E5F3BC03F8079003A5 /* Pods_DLLHTTPRequest_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B87810715081528CD0208F0 /* Pods_DLLHTTPRequest_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,9 +51,8 @@
 /* Begin PBXFileReference section */
 		0651519AFADEEE8576D0BE62 /* Pods-DLLHTTPRequest_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DLLHTTPRequest_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-DLLHTTPRequest_Example/Pods-DLLHTTPRequest_Example.release.xcconfig"; sourceTree = "<group>"; };
 		2C5B005D4AAEDD681E4725EA /* Pods-DLLHTTPRequest_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DLLHTTPRequest_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DLLHTTPRequest_Example/Pods-DLLHTTPRequest_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		34FD9678A288625FD3934255 /* Pods_DLLHTTPRequest_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DLLHTTPRequest_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E83B0051DC6EEDC0001936B /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		6003F58A195388D20070C39A /* DLLHTTPRequest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DLLHTTPRequest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6003F58A195388D20070C39A /* DLLHTTPRequest_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DLLHTTPRequest_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6003F591195388D20070C39A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -72,10 +71,11 @@
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		69144BD15297D150EA528F6A /* Pods_DLLHTTPRequest_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DLLHTTPRequest_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B87810715081528CD0208F0 /* Pods_DLLHTTPRequest_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DLLHTTPRequest_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7ED2C6A44C4EA5D03004250F /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		81AD499D1E90EECC6F695284 /* DLLHTTPRequest.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DLLHTTPRequest.podspec; path = ../DLLHTTPRequest.podspec; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		B64406A6B6661090D6EC5174 /* Pods_DLLHTTPRequest_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DLLHTTPRequest_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BABA8DB5BC9C69A49BBCC5A7 /* Pods-DLLHTTPRequest_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DLLHTTPRequest_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DLLHTTPRequest_Tests/Pods-DLLHTTPRequest_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		F4CB2D1EC5EC7141F79DD44C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		F96D4E01DDFA32EA9F585CB6 /* Pods-DLLHTTPRequest_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DLLHTTPRequest_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DLLHTTPRequest_Tests/Pods-DLLHTTPRequest_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -89,7 +89,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				5468D012B74F705F4539C13B /* Pods_DLLHTTPRequest_Example.framework in Frameworks */,
+				57032F9A0C5D97C80608567D /* Pods_DLLHTTPRequest_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,7 +100,7 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				78DDF8B11618F706541783A9 /* Pods_DLLHTTPRequest_Tests.framework in Frameworks */,
+				8EA567E5F3BC03F8079003A5 /* Pods_DLLHTTPRequest_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,7 +122,7 @@
 		6003F58B195388D20070C39A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6003F58A195388D20070C39A /* DLLHTTPRequest.app */,
+				6003F58A195388D20070C39A /* DLLHTTPRequest_Example.app */,
 				6003F5AE195388D20070C39A /* DLLHTTPRequest_Tests.xctest */,
 			);
 			name = Products;
@@ -135,9 +135,9 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				69144BD15297D150EA528F6A /* Pods_DLLHTTPRequest_Example.framework */,
-				34FD9678A288625FD3934255 /* Pods_DLLHTTPRequest_Tests.framework */,
 				4E83B0051DC6EEDC0001936B /* NotificationCenter.framework */,
+				B64406A6B6661090D6EC5174 /* Pods_DLLHTTPRequest_Example.framework */,
+				7B87810715081528CD0208F0 /* Pods_DLLHTTPRequest_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -211,9 +211,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6003F589195388D20070C39A /* DLLHTTPRequest */ = {
+		6003F589195388D20070C39A /* DLLHTTPRequest_Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "DLLHTTPRequest" */;
+			buildConfigurationList = 6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "DLLHTTPRequest_Example" */;
 			buildPhases = (
 				E2F777A65A32A9439E291B98 /* [CP] Check Pods Manifest.lock */,
 				6003F586195388D20070C39A /* Sources */,
@@ -227,9 +227,9 @@
 			);
 			dependencies = (
 			);
-			name = DLLHTTPRequest;
+			name = DLLHTTPRequest_Example;
 			productName = DLLHTTPRequest;
-			productReference = 6003F58A195388D20070C39A /* DLLHTTPRequest.app */;
+			productReference = 6003F58A195388D20070C39A /* DLLHTTPRequest_Example.app */;
 			productType = "com.apple.product-type.application";
 		};
 		6003F5AD195388D20070C39A /* DLLHTTPRequest_Tests */ = {
@@ -281,7 +281,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6003F589195388D20070C39A /* DLLHTTPRequest */,
+				6003F589195388D20070C39A /* DLLHTTPRequest_Example */,
 				6003F5AD195388D20070C39A /* DLLHTTPRequest_Tests */,
 			);
 		};
@@ -425,7 +425,7 @@
 /* Begin PBXTargetDependency section */
 		6003F5B4195388D20070C39A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6003F589195388D20070C39A /* DLLHTTPRequest */;
+			target = 6003F589195388D20070C39A /* DLLHTTPRequest_Example */;
 			targetProxy = 6003F5B3195388D20070C39A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -623,7 +623,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "DLLHTTPRequest" */ = {
+		6003F5BF195388D20070C39A /* Build configuration list for PBXNativeTarget "DLLHTTPRequest_Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6003F5C0195388D20070C39A /* Debug */,
