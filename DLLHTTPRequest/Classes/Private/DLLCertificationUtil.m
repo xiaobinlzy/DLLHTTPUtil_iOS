@@ -23,14 +23,18 @@ static NSURLCredential *__credential;
     return __securityPolicy;
 }
 
-+ (AFSecurityPolicy *)createDefaultSecurityPolicyWithCertificatePath:(NSString *)cerPath {
++ (AFSecurityPolicy *)setDefaultSecurityPolicyWithCertificatePath:(NSString *)cerPath {
     if (__securityPolicy != nil) {
         __securityPolicy = nil;
     }
-    NSData *cerData = [NSData dataWithContentsOfFile:cerPath];
-    __securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
-    [__securityPolicy setAllowInvalidCertificates:YES];
-    [__securityPolicy setPinnedCertificates:[NSSet setWithArray:[NSArray arrayWithObject:cerData]]];
+    if (cerPath) {
+        NSData *cerData = [NSData dataWithContentsOfFile:cerPath];
+        __securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
+        [__securityPolicy setAllowInvalidCertificates:YES];
+        [__securityPolicy setPinnedCertificates:[NSSet setWithArray:[NSArray arrayWithObject:cerData]]];
+    } else {
+        __securityPolicy = [AFSecurityPolicy defaultPolicy];
+    }
     return __securityPolicy;
 }
 

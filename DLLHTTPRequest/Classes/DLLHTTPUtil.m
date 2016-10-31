@@ -11,8 +11,8 @@
 
 @implementation DLLHTTPUtil
 
-+ (void)createDefaultSecurityPolicyWithCertificatePath:(NSString *)cerPath {
-    [DLLCertificationUtil createDefaultSecurityPolicyWithCertificatePath:cerPath];
++ (void)setDefaultSecurityPolicyWithCertificatePath:(NSString *)cerPath {
+    [DLLCertificationUtil setDefaultSecurityPolicyWithCertificatePath:cerPath];
 }
 
 + (NSURLCredential *)createDefaultCredentialWithCertificatePath:(NSString *)cerPath andPassword:(NSString *)password {

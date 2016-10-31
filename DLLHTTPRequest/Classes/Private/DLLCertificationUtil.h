@@ -15,7 +15,7 @@
 /**
  初始化默认的SSL证书
  **/
-+ (AFSecurityPolicy *)createDefaultSecurityPolicyWithCertificatePath:(NSString *)cerPath;
++ (AFSecurityPolicy *)setDefaultSecurityPolicyWithCertificatePath:(NSString *)cerPath;
 
 /**
  初始化SSL客户端请求证书
