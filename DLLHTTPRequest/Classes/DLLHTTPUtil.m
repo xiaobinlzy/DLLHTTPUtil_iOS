@@ -83,11 +83,14 @@
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
     NSArray *nameValuePairs = [parameters componentsSeparatedByString:@"&"];
     for (NSString *nameValueString in nameValuePairs) {
-        NSArray *nameValue = [nameValueString componentsSeparatedByString:@"="];
-        if (nameValue.count == 2) {
-            if ([nameValue firstObject] && [nameValue lastObject]) {
-                [result setObject:[self URLDecodingFromString:[nameValue lastObject] encoding:encoding]
-                           forKey:[self URLDecodingFromString:[nameValue firstObject] encoding:encoding]];
+        NSRange equalRange = [nameValueString rangeOfString:@"="];
+        if (equalRange.location != NSNotFound) {
+            NSArray *nameValue = [NSArray arrayWithObjects:[nameValueString substringToIndex:equalRange.location], [nameValueString substringFromIndex:equalRange.location + 1], nil];
+            if (nameValue.count == 2) {
+                if ([nameValue firstObject] && [nameValue lastObject]) {
+                    [result setObject:[self URLDecodingFromString:[nameValue lastObject] encoding:encoding]
+                               forKey:[self URLDecodingFromString:[nameValue firstObject] encoding:encoding]];
+                }
             }
         }
     }
