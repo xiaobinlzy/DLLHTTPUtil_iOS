@@ -1,11 +1,4 @@
 #use_frameworks!
-
-target 'DLLHTTPRequest_Example' do
+target 'DLLHTTPRequest_Tests' do
   pod 'DLLHTTPRequest/Source', :path => '../'
-
-  target 'DLLHTTPRequest_Tests' do
-    inherit! :search_paths
-
-    
-  end
 end

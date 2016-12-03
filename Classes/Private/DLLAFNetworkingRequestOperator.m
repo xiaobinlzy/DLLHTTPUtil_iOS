@@ -65,6 +65,7 @@
 }
 
 - (void)requestFinishWithTask:(NSURLSessionDataTask *)task responseObject:(id)responseObject {
+    [_manager invalidateSessionCancelingTasks:YES];
     _manager = nil;
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
     _response = [[DLLHTTPResponse alloc] initWithStatusCode:httpResponse.statusCode responseData:responseObject stringEncoding:_reporter.responseEncoding responseHeaders:httpResponse.allHeaderFields responseString:[[NSString alloc] initWithData:responseObject encoding:_reporter.responseEncoding]];
@@ -73,6 +74,7 @@
 }
 
 - (void)requestFailedWithTask:(NSURLSessionDataTask *)task error:(NSError *)error {
+    [_manager invalidateSessionCancelingTasks:YES];
     _manager = nil;
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
     _response = [[DLLHTTPResponse alloc] initWithStatusCode:httpResponse.statusCode responseData:nil stringEncoding:_reporter.responseEncoding responseHeaders:httpResponse.allHeaderFields responseString:nil];
@@ -84,6 +86,8 @@
     [super cancel];
     _reporter = nil;
     [[_manager operationQueue] cancelAllOperations];
+    [_manager invalidateSessionCancelingTasks:YES];
+    _manager = nil;
 }
 
 - (AFHTTPSessionManager *)createAFNetworkingManager {
