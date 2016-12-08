@@ -85,7 +85,6 @@
 - (void)cancel {
     [super cancel];
     _reporter = nil;
-    [[_manager operationQueue] cancelAllOperations];
     [_manager invalidateSessionCancelingTasks:YES];
     _manager = nil;
 }
