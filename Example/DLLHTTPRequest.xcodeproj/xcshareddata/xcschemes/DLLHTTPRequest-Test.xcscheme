@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6003F589195388D20070C39A"
-               BuildableName = "DLLHTTPRequest_Example.app"
-               BlueprintName = "DLLHTTPRequest_Example"
+               BlueprintIdentifier = "4E26DF9A1DF90D4C00FCD321"
+               BuildableName = "DLLHTTPRequest-Test.app"
+               BlueprintName = "DLLHTTPRequest-Test"
                ReferencedContainer = "container:DLLHTTPRequest.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,23 +28,13 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6003F5AD195388D20070C39A"
-               BuildableName = "DLLHTTPRequest_Tests.xctest"
-               BlueprintName = "DLLHTTPRequest_Tests"
-               ReferencedContainer = "container:DLLHTTPRequest.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6003F589195388D20070C39A"
-            BuildableName = "DLLHTTPRequest_Example.app"
-            BlueprintName = "DLLHTTPRequest_Example"
+            BlueprintIdentifier = "4E26DF9A1DF90D4C00FCD321"
+            BuildableName = "DLLHTTPRequest-Test.app"
+            BlueprintName = "DLLHTTPRequest-Test"
             ReferencedContainer = "container:DLLHTTPRequest.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -65,9 +55,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6003F589195388D20070C39A"
-            BuildableName = "DLLHTTPRequest_Example.app"
-            BlueprintName = "DLLHTTPRequest_Example"
+            BlueprintIdentifier = "4E26DF9A1DF90D4C00FCD321"
+            BuildableName = "DLLHTTPRequest-Test.app"
+            BlueprintName = "DLLHTTPRequest-Test"
             ReferencedContainer = "container:DLLHTTPRequest.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -84,9 +74,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6003F589195388D20070C39A"
-            BuildableName = "DLLHTTPRequest_Example.app"
-            BlueprintName = "DLLHTTPRequest_Example"
+            BlueprintIdentifier = "4E26DF9A1DF90D4C00FCD321"
+            BuildableName = "DLLHTTPRequest-Test.app"
+            BlueprintName = "DLLHTTPRequest-Test"
             ReferencedContainer = "container:DLLHTTPRequest.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
