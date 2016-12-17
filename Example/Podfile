@@ -1,0 +1,4 @@
+#use_frameworks!
+target 'DLLHTTPRequest-Test' do
+  pod 'DLLHTTPRequest/Source', :path => '../'
+end

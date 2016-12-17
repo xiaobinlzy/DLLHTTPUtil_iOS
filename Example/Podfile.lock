@@ -1,0 +1,33 @@
+PODS:
+  - AFNetworking (3.1.0):
+    - AFNetworking/NSURLSession (= 3.1.0)
+    - AFNetworking/Reachability (= 3.1.0)
+    - AFNetworking/Security (= 3.1.0)
+    - AFNetworking/Serialization (= 3.1.0)
+    - AFNetworking/UIKit (= 3.1.0)
+  - AFNetworking/NSURLSession (3.1.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.1.0)
+  - AFNetworking/Security (3.1.0)
+  - AFNetworking/Serialization (3.1.0)
+  - AFNetworking/UIKit (3.1.0):
+    - AFNetworking/NSURLSession
+  - DLLHTTPRequest/Source (0.2.5):
+    - AFNetworking
+
+DEPENDENCIES:
+  - DLLHTTPRequest/Source (from `../`)
+
+EXTERNAL SOURCES:
+  DLLHTTPRequest:
+    :path: ../
+
+SPEC CHECKSUMS:
+  AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  DLLHTTPRequest: 3e9e0be770bba36296dc4d6c4babf6166837e03a
+
+PODFILE CHECKSUM: ba31cf357cff772207a1d0916cd8513789942fb8
+
+COCOAPODS: 1.1.1
