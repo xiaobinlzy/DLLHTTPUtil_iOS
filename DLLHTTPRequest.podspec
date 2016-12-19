@@ -21,11 +21,11 @@ Pod::Spec.new do |s|
 网络请求中间层，底层实现采用AFNetworking。
                        DESC
 
-  s.homepage         = 'http://10.0.4.46:7990/scm/yd/dllhttprequest'
+  s.homepage         = 'http://gitlab.58corp.com/ChinaHR-iOS/DLLHTTPRequest'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'xiaobinlzy' => 'xiaobinlzy@163.com' }
   s.default_subspec  = 'Binary'
-  s.source  = { :git => 'http://10.0.4.46:7990/scm/yd/dllhttprequest.git', :tag => s.version.to_s }
+  s.source  = { :git => 'http://gitlab.58corp.com/ChinaHR-iOS/DLLHTTPRequest.git', :tag => s.version.to_s }
   s.public_header_files = 'Classes/*.h'
   s.source_files = 'Classes/*.h'
   s.dependency 'AFNetworking'
