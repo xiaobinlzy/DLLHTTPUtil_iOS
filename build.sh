@@ -27,6 +27,7 @@ mkdir ${BUILD_DIR}
 
 pushd Example
 pod install
+popd
 
 #构建模拟器和设备的库
 echo "正在构建模拟器库..."
