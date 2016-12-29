@@ -40,7 +40,6 @@ DLLHTTPRequest is available through [CocoaPods](http://cocoapods.org). To instal
 it, simply add the following line to your Podfile:
 
 ```ruby
-source 'http://10.0.0.236/iOS/CHRLibrary.podspec.git'
 
 # target some project
 pod "DLLHTTPRequest"

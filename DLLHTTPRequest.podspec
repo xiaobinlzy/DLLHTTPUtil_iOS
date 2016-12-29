@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'DLLHTTPRequest'
-  s.version          = '0.2.5'
+  s.version          = '0.2.6'
   s.summary          = '网络请求中间层'
 
 # This description is used to generate tags and improve search results.
@@ -21,15 +21,15 @@ Pod::Spec.new do |s|
 网络请求中间层，底层实现采用AFNetworking。
                        DESC
 
-  s.homepage         = 'http://gitlab.58corp.com/ChinaHR-iOS/DLLHTTPRequest'
+  s.homepage         = 'https://github.com/xiaobinlzy/DLLHTTPUtil_iOS'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'xiaobinlzy' => 'xiaobinlzy@163.com' }
   s.default_subspec  = 'Binary'
-  s.source  = { :git => 'http://gitlab.58corp.com/ChinaHR-iOS/DLLHTTPRequest.git', :tag => s.version.to_s }
+  s.source  = { :git => 'https://github.com/xiaobinlzy/DLLHTTPUtil_iOS.git', :tag => s.version.to_s }
   s.public_header_files = 'Classes/*.h'
   s.source_files = 'Classes/*.h'
   s.dependency 'AFNetworking'
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '7.0'
 
   s.subspec 'Source' do |source| 
     source.source_files = 'Classes/**/*'
