@@ -11,6 +11,7 @@
 #import "DLLAFNetworkingRequestOperator.h"
 
 static NSSet<NSData *> * __trustedCertifications;
+static BOOL __allowInvalideCertificates;
 
 @interface DLLHTTPRequest() <DLLRequestOoperatorReporter>
 
@@ -85,6 +86,14 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 
 + (NSSet<NSData *> *)trustedCertifications {
     return [__trustedCertifications copy];
+}
+
++ (BOOL)allowInvalideCertificates {
+    return __allowInvalideCertificates;
+}
+
++ (void)setAllowInvalideCertificates:(BOOL)allowInvalideCertificates {
+    __allowInvalideCertificates = allowInvalideCertificates;
 }
 
 

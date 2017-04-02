@@ -11,19 +11,21 @@
 #import <AFNetworking/AFNetworking.h>
 #import "DLLCertificationUtil.h"
 
-static AFSecurityPolicy *__securityPolicy;
 
 @implementation DLLAFNetworkingRequestOperator {
     AFHTTPSessionManager *_manager;
 }
 
 + (AFSecurityPolicy *)securityPolicy {
-    NSSet *certifications = [DLLHTTPRequest trustedCertifications];
-    if (__securityPolicy.pinnedCertificates != certifications) {
-        __securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate withPinnedCertificates:certifications];
-        __securityPolicy.allowInvalidCertificates = YES;
+    AFSecurityPolicy *policy = nil;
+    if ([DLLHTTPRequest allowInvalideCertificates]) {
+        policy = [AFSecurityPolicy defaultPolicy];
+        policy.allowInvalidCertificates = YES;
+        policy.validatesDomainName = NO;
+    } else if ([DLLHTTPRequest trustedCertifications].count > 0) {
+        policy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate withPinnedCertificates:DLLHTTPRequest.trustedCertifications];
     }
-    return __securityPolicy;
+    return policy;
 }
 
 - (void)startGet {
@@ -103,7 +105,9 @@ static AFSecurityPolicy *__securityPolicy;
 - (AFHTTPSessionManager *)createAFNetworkingManager {
     AFSecurityPolicy *securityPolicy = [self.class securityPolicy];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.securityPolicy = securityPolicy;
+    if (securityPolicy) {
+        manager.securityPolicy = securityPolicy;
+    }
     manager.requestSerializer.timeoutInterval = _reporter.timeoutIntervel;
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     for (NSString *key in _reporter.requestHeaders) {

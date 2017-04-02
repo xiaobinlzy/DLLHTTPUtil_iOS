@@ -71,6 +71,8 @@ typedef void (^DLLHTTPCallback) (DLLHTTPRequest * request, NSString * responseSt
 
 @property (nonatomic, class, copy) NSSet<NSData *> *trustedCertifications;
 
+@property (nonatomic, class, assign) BOOL allowInvalideCertificates;
+
 
 #pragma mark - properties
 /**
