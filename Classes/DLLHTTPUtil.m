@@ -11,20 +11,6 @@
 
 @implementation DLLHTTPUtil
 
-+ (void)setDefaultSecurityPolicyWithCertificatePath:(NSString *)cerPath {
-    [DLLCertificationUtil setDefaultSecurityPolicyWithCertificatePath:cerPath];
-}
-
-+ (NSURLCredential *)createDefaultCredentialWithCertificatePath:(NSString *)cerPath andPassword:(NSString *)password {
-    return [DLLCertificationUtil createDefaultCredentialWithCertificatePath:cerPath andPassword:password];
-}
-
-+ (NSURLCredential *)defaultCredential {
-    return [DLLCertificationUtil defaultCredential];
-}
-
-
-
 + (NSURL*) urlFormWithHostAddress:(NSString*)hostAddress andParameters:(NSDictionary*)parameters
 {
     return [self urlFormWithHostAddress:hostAddress andParameters:parameters encoding:NSUTF8StringEncoding];

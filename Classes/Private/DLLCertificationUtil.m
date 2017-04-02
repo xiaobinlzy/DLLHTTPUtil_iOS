@@ -8,39 +8,10 @@
 
 #import "DLLCertificationUtil.h"
 
+static NSURLCredential * __credential;
+
 @implementation DLLCertificationUtil
 
-
-static AFSecurityPolicy *__securityPolicy;
-static NSURLCredential *__credential;
-
-+ (AFSecurityPolicy *)defaultSecurityPolciy {
-    if (__securityPolicy == nil) {
-        @synchronized (self) {
-            __securityPolicy = [AFSecurityPolicy defaultPolicy];
-        }
-    }
-    return __securityPolicy;
-}
-
-+ (AFSecurityPolicy *)setDefaultSecurityPolicyWithCertificatePath:(NSString *)cerPath {
-    if (__securityPolicy != nil) {
-        __securityPolicy = nil;
-    }
-    if (cerPath) {
-        NSData *cerData = [NSData dataWithContentsOfFile:cerPath];
-        __securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
-        [__securityPolicy setAllowInvalidCertificates:YES];
-        [__securityPolicy setPinnedCertificates:[NSSet setWithArray:[NSArray arrayWithObject:cerData]]];
-    } else {
-        __securityPolicy = [AFSecurityPolicy defaultPolicy];
-    }
-    return __securityPolicy;
-}
-
-+ (NSURLCredential *)defaultCredential {
-    return __credential;
-}
 
 OSStatus extractIdentityAndTrust(CFDataRef inP12data, SecIdentityRef *identity, SecTrustRef *trust, NSString* password) {
     OSStatus securityError = errSecSuccess;

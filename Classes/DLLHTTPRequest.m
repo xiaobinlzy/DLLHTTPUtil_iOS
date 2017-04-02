@@ -9,6 +9,9 @@
 #import "DLLHTTPRequest.h"
 #import "DLLHTTPUtil.h"
 #import "DLLAFNetworkingRequestOperator.h"
+
+static NSSet<NSData *> * __trustedCertifications;
+
 @interface DLLHTTPRequest() <DLLRequestOoperatorReporter>
 
 @end
@@ -73,6 +76,15 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"%@, %@", [super description], [DLLHTTPUtil urlFormWithHostAddress:_url.absoluteString andParameters:_params].absoluteString];
+}
+
+#pragma mark - property
++ (void)setTrustedCertifications:(NSSet<NSData *> *)trustedCertifications {
+    __trustedCertifications = [trustedCertifications copy];
+}
+
++ (NSSet<NSData *> *)trustedCertifications {
+    return [__trustedCertifications copy];
 }
 
 

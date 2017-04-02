@@ -68,6 +68,10 @@ typedef void (^DLLHTTPCallback) (DLLHTTPRequest * request, NSString * responseSt
     NSMutableDictionary *_requestHeaders;
 }
 
+
+@property (nonatomic, class, copy) NSSet<NSData *> *trustedCertifications;
+
+
 #pragma mark - properties
 /**
  获取请求的URL。

@@ -11,8 +11,19 @@
 #import <AFNetworking/AFNetworking.h>
 #import "DLLCertificationUtil.h"
 
+static AFSecurityPolicy *__securityPolicy;
+
 @implementation DLLAFNetworkingRequestOperator {
     AFHTTPSessionManager *_manager;
+}
+
++ (AFSecurityPolicy *)securityPolicy {
+    NSSet *certifications = [DLLHTTPRequest trustedCertifications];
+    if (__securityPolicy.pinnedCertificates != certifications) {
+        __securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate withPinnedCertificates:certifications];
+        __securityPolicy.allowInvalidCertificates = YES;
+    }
+    return __securityPolicy;
 }
 
 - (void)startGet {
@@ -90,18 +101,11 @@
 }
 
 - (AFHTTPSessionManager *)createAFNetworkingManager {
-    AFSecurityPolicy *securityPolicy = [DLLCertificationUtil defaultSecurityPolciy];
+    AFSecurityPolicy *securityPolicy = [self.class securityPolicy];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.securityPolicy = securityPolicy;
     manager.requestSerializer.timeoutInterval = _reporter.timeoutIntervel;
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSURLCredential *defaultCredential = [DLLCertificationUtil defaultCredential];
-    if (defaultCredential) {
-        [manager setTaskDidReceiveAuthenticationChallengeBlock:^NSURLSessionAuthChallengeDisposition(NSURLSession * _Nonnull session, NSURLSessionTask * _Nonnull task, NSURLAuthenticationChallenge * _Nonnull challenge, NSURLCredential *__autoreleasing  _Nullable * _Nullable credential) {
-            *credential = defaultCredential;
-            return NSURLSessionAuthChallengeUseCredential;
-        }];
-    }
     for (NSString *key in _reporter.requestHeaders) {
         [manager.requestSerializer setValue:[_reporter.requestHeaders objectForKey:key] forHTTPHeaderField:key];
     }

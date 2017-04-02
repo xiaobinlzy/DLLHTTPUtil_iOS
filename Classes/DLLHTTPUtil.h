@@ -13,21 +13,6 @@
 
 @interface DLLHTTPUtil : NSObject
 
-/** 
- 初始化默认的SSL证书
- **/
-+ (void)setDefaultSecurityPolicyWithCertificatePath:(NSString *)cerPath;
-
-/**
- 初始化SSL客户端请求证书
- **/
-+ (NSURLCredential *)createDefaultCredentialWithCertificatePath:(NSString *)cerPath andPassword:(NSString *)password;
-
-/**
- SSL客户端请求证书
- **/
-+ (NSURLCredential *)defaultCredential;
-
 /**
  URL参数拼接和转码
  **/
