@@ -73,6 +73,8 @@ typedef void (^DLLHTTPCallback) (DLLHTTPRequest * request, NSString * responseSt
 
 @property (nonatomic, class, assign) BOOL allowInvalideCertificates;
 
+@property (nonatomic, class, assign) BOOL reuseConnection;
+
 
 #pragma mark - properties
 /**

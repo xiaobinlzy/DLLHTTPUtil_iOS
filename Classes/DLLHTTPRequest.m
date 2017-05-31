@@ -12,6 +12,7 @@
 
 static NSSet<NSData *> * __trustedCertifications;
 static BOOL __allowInvalideCertificates;
+static BOOL __reusedConnection;
 
 @interface DLLHTTPRequest() <DLLRequestOoperatorReporter>
 
@@ -33,6 +34,9 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
 
 
 #pragma mark - life cycle
++ (void)load {
+    __reusedConnection = YES;
+}
 
 - (instancetype)initWithURL:(NSURL *)url
 {
@@ -96,6 +100,13 @@ static NSUInteger gDefaultTimeoutIntervel = 10;
     __allowInvalideCertificates = allowInvalideCertificates;
 }
 
++ (void)setReuseConnection:(BOOL)reuseConnection {
+    __reusedConnection = reuseConnection;
+}
+
++ (BOOL)reuseConnection {
+    return __reusedConnection;
+}
 
 #pragma mark - methods
 - (void)setRequestHeaders:(NSDictionary *)headers

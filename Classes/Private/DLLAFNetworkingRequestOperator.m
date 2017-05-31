@@ -11,9 +11,14 @@
 #import <AFNetworking/AFNetworking.h>
 #import "DLLCertificationUtil.h"
 
+static NSMutableDictionary<NSString *, AFHTTPSessionManager *> *__managers;
 
 @implementation DLLAFNetworkingRequestOperator {
     AFHTTPSessionManager *_manager;
+}
+
++ (void)load {
+    __managers = [[NSMutableDictionary alloc] init];
 }
 
 + (AFSecurityPolicy *)securityPolicy {
@@ -78,7 +83,9 @@
 }
 
 - (void)requestFinishWithTask:(NSURLSessionDataTask *)task responseObject:(id)responseObject {
-    [_manager invalidateSessionCancelingTasks:YES];
+    if (!DLLHTTPRequest.reuseConnection) {
+        [_manager invalidateSessionCancelingTasks:YES];
+    }
     _manager = nil;
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
     _response = [[DLLHTTPResponse alloc] initWithStatusCode:httpResponse.statusCode responseData:responseObject stringEncoding:_reporter.responseEncoding responseHeaders:httpResponse.allHeaderFields responseString:[[NSString alloc] initWithData:responseObject encoding:_reporter.responseEncoding]];
@@ -87,7 +94,9 @@
 }
 
 - (void)requestFailedWithTask:(NSURLSessionDataTask *)task error:(NSError *)error {
-    [_manager invalidateSessionCancelingTasks:YES];
+    if (!DLLHTTPRequest.reuseConnection) {
+        [_manager invalidateSessionCancelingTasks:YES];
+    }
     _manager = nil;
     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)task.response;
     _response = [[DLLHTTPResponse alloc] initWithStatusCode:httpResponse.statusCode responseData:nil stringEncoding:_reporter.responseEncoding responseHeaders:httpResponse.allHeaderFields responseString:nil];
@@ -98,13 +107,28 @@
 - (void)cancel {
     [super cancel];
     _reporter = nil;
-    [_manager invalidateSessionCancelingTasks:YES];
+    if (!DLLHTTPRequest.reuseConnection) {
+        [_manager invalidateSessionCancelingTasks:YES];
+    }
     _manager = nil;
 }
 
 - (AFHTTPSessionManager *)createAFNetworkingManager {
     AFSecurityPolicy *securityPolicy = [self.class securityPolicy];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    AFHTTPSessionManager *manager = nil;
+    if (DLLHTTPRequest.reuseConnection) {
+        NSURL *baseURL = _reporter.url.baseURL;
+        if (baseURL == nil) {
+            baseURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@", _reporter.url.scheme, _reporter.url.host]];
+        }
+        manager = __managers[baseURL.absoluteString];
+        if (manager == nil) {
+            manager = [[AFHTTPSessionManager alloc] initWithBaseURL:baseURL];
+            __managers[baseURL.absoluteString] = manager;
+        }
+    } else {
+        manager = [AFHTTPSessionManager manager];
+    }
     if (securityPolicy) {
         manager.securityPolicy = securityPolicy;
     }
