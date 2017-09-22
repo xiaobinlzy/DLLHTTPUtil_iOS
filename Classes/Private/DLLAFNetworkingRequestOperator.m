@@ -12,6 +12,7 @@
 #import "DLLCertificationUtil.h"
 
 static NSMutableDictionary<NSString *, AFHTTPSessionManager *> *__managers;
+static dispatch_queue_t __managerOperationQueue;
 
 @implementation DLLAFNetworkingRequestOperator {
     AFHTTPSessionManager *_manager;
@@ -19,6 +20,7 @@ static NSMutableDictionary<NSString *, AFHTTPSessionManager *> *__managers;
 
 + (void)load {
     __managers = [[NSMutableDictionary alloc] init];
+    __managerOperationQueue = dispatch_queue_create("DLLHTTPRequest_AFNetworking_managerOperationQueue", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
 }
 
 + (AFSecurityPolicy *)securityPolicy {
@@ -35,51 +37,56 @@ static NSMutableDictionary<NSString *, AFHTTPSessionManager *> *__managers;
 
 - (void)startGet {
     [super startGet];
-    _manager = [self createAFNetworkingManager];
-    [_manager GET:_reporter.url.absoluteString parameters:_reporter.params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self requestFinishWithTask:task responseObject:responseObject];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self requestFailedWithTask:task error:error];
-    }];
+    dispatch_async(__managerOperationQueue, ^{
+        _manager = [self createAFNetworkingManager];
+        [_manager GET:_reporter.url.absoluteString parameters:_reporter.params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [self requestFinishWithTask:task responseObject:responseObject];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [self requestFailedWithTask:task error:error];
+        }];
+    });
 }
 
 - (void)startPost {
     [super startPost];
-    _manager = [self createAFNetworkingManager];
-    [_manager POST:_reporter.url.absoluteString parameters:_reporter.params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self requestFinishWithTask:task responseObject:responseObject];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self requestFailedWithTask:task error:error];
-    }];
+    dispatch_async(__managerOperationQueue, ^{
+        _manager = [self createAFNetworkingManager];
+        [_manager POST:_reporter.url.absoluteString parameters:_reporter.params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [self requestFinishWithTask:task responseObject:responseObject];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [self requestFailedWithTask:task error:error];
+        }];
+    });
 }
 
 - (void)startPostForm {
     [super startPostForm];
-    _manager = [self createAFNetworkingManager];
-    
-    NSMutableDictionary *files = [[NSMutableDictionary alloc] init];
-    NSMutableDictionary *params = [_reporter.params mutableCopy];
-    for (NSString *key in _reporter.params) {
-        if ([key hasPrefix:@"file_"] && key.length > 5) {
-            NSString *name = [key substringFromIndex:5];
-            [files setObject:[_reporter.params objectForKey:key] forKey:name];
-            [params removeObjectForKey:key];
-        } else {
-            NSString *value = [_reporter.params objectForKey:key];
-            if ([value isKindOfClass:NSString.class]) {
-                [params setObject:value forKey:key];
+    dispatch_async(__managerOperationQueue, ^{
+        _manager = [self createAFNetworkingManager];
+        NSMutableDictionary *files = [[NSMutableDictionary alloc] init];
+        NSMutableDictionary *params = [_reporter.params mutableCopy];
+        for (NSString *key in _reporter.params) {
+            if ([key hasPrefix:@"file_"] && key.length > 5) {
+                NSString *name = [key substringFromIndex:5];
+                [files setObject:[_reporter.params objectForKey:key] forKey:name];
+                [params removeObjectForKey:key];
+            } else {
+                NSString *value = [_reporter.params objectForKey:key];
+                if ([value isKindOfClass:NSString.class]) {
+                    [params setObject:value forKey:key];
+                }
             }
         }
-    }
-    [_manager POST:_reporter.url.absoluteString parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        for (NSString *name in files) {
-            [formData appendPartWithFileURL:[NSURL fileURLWithPath:[files objectForKey:name]] name:name error:nil];
-        }
-    } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self requestFinishWithTask:task responseObject:responseObject];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self requestFailedWithTask:task error:error];
-    }];
+        [_manager POST:_reporter.url.absoluteString parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+            for (NSString *name in files) {
+                [formData appendPartWithFileURL:[NSURL fileURLWithPath:[files objectForKey:name]] name:name error:nil];
+            }
+        } progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [self requestFinishWithTask:task responseObject:responseObject];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            [self requestFailedWithTask:task error:error];
+        }];
+    });
 }
 
 - (void)requestFinishWithTask:(NSURLSessionDataTask *)task responseObject:(id)responseObject {
