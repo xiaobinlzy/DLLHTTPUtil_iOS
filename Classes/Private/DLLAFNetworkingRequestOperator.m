@@ -20,7 +20,7 @@ static dispatch_queue_t __managerOperationQueue;
 
 + (void)load {
     __managers = [[NSMutableDictionary alloc] init];
-    __managerOperationQueue = dispatch_queue_create("DLLHTTPRequest_AFNetworking_managerOperationQueue", DISPATCH_QUEUE_SERIAL_WITH_AUTORELEASE_POOL);
+    __managerOperationQueue = dispatch_queue_create("DLLHTTPRequest_AFNetworking_managerOperationQueue", DISPATCH_QUEUE_SERIAL);
 }
 
 + (AFSecurityPolicy *)securityPolicy {

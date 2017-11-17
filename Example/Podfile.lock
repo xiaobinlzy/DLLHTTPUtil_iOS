@@ -14,7 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - DLLHTTPRequest/Source (0.4.1):
+  - DLLHTTPRequest/Source (0.4.2):
     - AFNetworking
 
 DEPENDENCIES:
@@ -26,7 +26,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  DLLHTTPRequest: 534119dc28fbff801fa702c897eb2022b30bbc99
+  DLLHTTPRequest: 34759666512b5b92f1ef78df60175ba8e90e412d
 
 PODFILE CHECKSUM: ba31cf357cff772207a1d0916cd8513789942fb8
 
